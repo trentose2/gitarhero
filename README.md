@@ -6,5 +6,5 @@
 ### Membri:
 - Matteo Contrini ([@matteocontrini](https://github.com/matteocontrini))
 - Alessandro Conti
-- Giovanni Tranquillini
+- Giovanni Tranquillini ([@giovannitranquillini](https://github.com/giovannitranquillini))
 - Andrea Stedile
