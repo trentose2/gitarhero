@@ -1,0 +1,32 @@
+{
+  "name": "gitarhero",
+  "version": "1.0.0",
+  "description": "gitar hero API",
+  "main": "index.js",
+  "private": true,
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/matteocontrini/gitarhero.git"
+  },
+  "author": "gitar hero",
+  "contributors": [
+    "Alessandro Conti",
+    "Andrea Stedile",
+    "Giovanni Tranquillini",
+    "Matteo Contrini"
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/matteocontrini/gitarhero/issues"
+  },
+  "homepage": "https://github.com/matteocontrini/gitarhero#readme",
+  "dependencies": {
+    "express": "^4.16.4"
+  }
+}
