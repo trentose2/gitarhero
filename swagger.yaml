@@ -124,7 +124,7 @@ paths:
         Creates an assignment.
       summary: Create an assignment
       parameters:
-        - name: exam
+        - name: assignment
           in: body
           required: true
           schema:
@@ -241,8 +241,8 @@ paths:
   /assignments/{id}/tasks:
     get:
       description: >-
-        Gets the list of the tasks composing an exam.
-      summary: Get an exam's tasks
+        Gets the list of the tasks composing an assignment.
+      summary: Get an assignment's tasks
       responses:
         200:
           description: An array of JSON objects representing tasks.
@@ -254,7 +254,7 @@ paths:
   /assignments/{idA}/answers/{idT}:
     get:
       description: >-
-        Gets an answer previously gave for a specific question.
+        Gets an answer previously given to a specific task.
       summary: Get a previously submitted answer
       responses:
         200:
