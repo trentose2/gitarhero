@@ -92,6 +92,19 @@ paths:
       responses:
         200:
           description: An array of JSON objects representing groups
+  /groups/{id}/:
+    patch:
+      description: >-
+        Updates the list of members of a group.
+      summary: Update group members
+      responses:
+        200:
+          description: An array representing user IDs.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: integer
   /groups/{id}/members:
     get:
       description: >-
@@ -109,7 +122,7 @@ paths:
     post:
       description: >-
         Creates an assignment.
-      summary: Create an assignment.
+      summary: Create an assignment
       parameters:
         - name: exam
           in: body
@@ -161,6 +174,18 @@ paths:
           in: path
           required: true
           type: integer
+    patch:
+      description: >-
+        Updates a specific assignment, marking it as closed, adding or removing a task or the task list.
+      summary: Update assignment
+      responses:
+        200:
+          description: A JSON object representing the updated assignment.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: integer
     delete:
       description: >-
         Deletes an assignment.
@@ -177,7 +202,7 @@ paths:
     post:
       description: >-
         Creates a new task. A task is a question or an exercise.
-      summary: Create a task.
+      summary: Create a task
       responses:
         201:
           description: ''
@@ -192,10 +217,22 @@ paths:
     delete:
       description: >-
         Deletes a task.
-      summary: Delete a task.
+      summary: Delete a task
       responses:
         204:
           description: ''
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: integer
+    put:
+      description: >-
+        Updates a task.
+      summary: Update a task
+      responses:
+        200:
+          description: A JSON object representing the updated task.
       parameters:
         - name: id
           in: path
