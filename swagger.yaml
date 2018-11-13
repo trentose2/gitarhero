@@ -2,7 +2,7 @@ swagger: '2.0'
 info:
   version: '1.0'
   title: "Gitarhero API"
-  description: GitarheroAPO is a simple API. If you are reading this, you already know what it is meant for.
+  description: If you are reading this documentation, you already know what it is meant for.
   license:
     name: MIT
     url: https://github.com/apiaryio/polls-api/blob/master/LICENSE
@@ -18,11 +18,10 @@ paths:
   /users:
     post:
       description: >-
-        You may register on Gitarhero using this action.
-        It takes a JSON object containing name, surname, username, email, password.
-      summary: Register a New User
+        Lets newcomer register with the application.
+      summary: Register
       parameters:
-        - name: user
+        - name: register
           in: body
           required: true
           schema:
@@ -47,34 +46,26 @@ paths:
       responses:
         201:
           description: ''
-          examples:
-            application/json:
-                name: John
-                surname: Smith
-                username: johnsmith
-                email: johnsmith@acme.com
-                password: betterBeSomeSecret
     get:
       description: >-
-        A teacher or a student views their own profile.
-      summary: See your own profile
+        Gets a user's profile.
+      summary: Get a user's profile
       responses:
-        201:
-          description: ''
+        200:
+          description: 'A JSON object representing a user profile.'
   /users/me:
     get:
       description: >-
-        Sees a student's profile.
-      summary: See a user profile.
+        Gets a user personal profile.
+      summary: Get personal profile
       responses:
-        201:
-          description: ''
+        200:
+          description: A JSON object representing a user's personal profile
   /groups:
     post:
       description: >-
-        Creates a group of candidates, who will further take an exam.
-        It takes a JSON object containing group's name and members.
-      summary: Create a New Group
+        Creates a group of candidates. Candidates of a group are able to take the associated assignments.
+      summary: Create a new group
       parameters:
         - name: group
           in: body
@@ -96,19 +87,19 @@ paths:
           description: ''
     get:
       description: >-
-        A teacher sees the groups they have created; a student sees the groups they belong to.
-      summary: See groups
+        Gets the groups. If the user issuing this request is a teacher, then the list represents groups that the teacher themselves have created; if it is a student, then the list represents the groups that the student themselves belong to.
+      summary: Get groups
       responses:
-        201:
-          description: ''
+        200:
+          description: An array of JSON objects representing groups
   /groups/{id}/members:
     get:
       description: >-
         Gets the list of members of a group. If the user issuing this request is a teacher, then the list represents the members of a group that the teacher themselves have created; if it is a student, then the list represents the memebrs of a group that the student themselves belong to.
-      summary: See group members
+      summary: Get group members
       responses:
-        201:
-          description: ''
+        200:
+          description: An array of integers representing user IDs.
       parameters:
         - name: id
           in: path
@@ -117,9 +108,8 @@ paths:
   /assignments:
     post:
       description: >-
-        Creates an exam.
-        It takes a JSON object containing exam's name, tasks, groups, deadline, status.
-      summary: Create an Exam.
+        Creates an assignment.
+      summary: Create an assignment.
       parameters:
         - name: exam
           in: body
@@ -151,3 +141,93 @@ paths:
       responses:
         201:
           description: ''
+    get:
+      description: >-
+        Get assignments. If the user issuing this request is a teacher, then the list represents the assignments they have created; if it is a student, then the list represents the assignments they have to complete. An assignment has content such as assignment name, deadline, tasks.
+      summary: Get assignments
+      responses:
+        200:
+          description: An array of JSON objects representing assignments.
+  /assignments/{id}:
+    get:
+      description: >-
+        Gets a specific assignment. An assignment has content such as assignment name, deadline, tasks.
+      summary: Get assignment
+      responses:
+        200:
+          description: A JSON object representing an assignment.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: integer
+    delete:
+      description: >-
+        Deletes an assignment.
+      summary: Delete an assignment
+      responses:
+        204:
+          description: ''
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: integer
+  /tasks:
+    post:
+      description: >-
+        Creates a new task. A task is a question or an exercise.
+      summary: Create a task.
+      responses:
+        201:
+          description: ''
+    delete:
+      description: >-
+        Deletes all tasks.
+      summary: Delete all tasks
+      responses:
+        204:
+          description: ''
+  /tasks/{id}:
+    delete:
+      description: >-
+        Deletes a task.
+      summary: Delete a task.
+      responses:
+        204:
+          description: ''
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: integer
+  /assignments/{id}/tasks:
+    get:
+      description: >-
+        Gets the list of the tasks composing an exam.
+      summary: Get an exam's tasks
+      responses:
+        200:
+          description: An array of JSON objects representing tasks.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: integer
+  /assignments/{idA}/answers/{idT}:
+    get:
+      description: >-
+        Gets an answer previously gave for a specific question.
+      summary: Get a previously submitted answer
+      responses:
+        200:
+          description: A JSON object representing an answer.
+      parameters:
+        - name: idA
+          in: path
+          required: true
+          type: integer
+        - name: idT
+          in: path
+          required: true
+          type: integer
