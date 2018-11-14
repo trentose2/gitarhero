@@ -7,7 +7,7 @@ info:
     name: MIT
     url: https://github.com/apiaryio/polls-api/blob/master/LICENSE
 host: api.gitarhero.org
-basePath: /
+basePath: /api/v1
 schemes:
 - http
 consumes:
