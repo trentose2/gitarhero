@@ -251,20 +251,24 @@ paths:
           in: path
           required: true
           type: integer
-  /assignments/{idAssignment}/tasks/{idTask}/answers:
+  /answers:
     post:
       description: >-
-        Submits an answer to a specific task of an assignment.
+        Submits an answer to a specific task of an assignment. The userId and taskId are specified in a JSON object sent along with the request.
       summary: Submit an answer
       responses:
         201:
           description: ''
+  /answers/{id}:
+    get:
+      description: >-
+        Gets an answer that was previously submitted to a specific task.
+      summary: Get a submitted answer
+      responses:
+        200:
+          description: A JSON object representing an answer.
       parameters:
-        - name: idAssignment
-          in: path
-          required: true
-          type: integer
-        - name: idTask
+        - name: id
           in: path
           required: true
           type: integer
@@ -276,31 +280,11 @@ paths:
         204:
           description: ''
       parameters:
-        - name: idAssignment
+        - name: id
           in: path
           required: true
           type: integer
-        - name: idTask
-          in: path
-          required: true
-          type: integer
-    get:
-      description: >-
-        Gets an answer that was previously submitted to a specific task.
-      summary: Get a submitted answer
-      responses:
-        200:
-          description: A JSON object representing an answer.
-      parameters:
-        - name: idAssignment
-          in: path
-          required: true
-          type: integer
-        - name: idTask
-          in: path
-          required: true
-          type: integer
-  /assignments/{idAssignment}/tasks/{idTask}/answers/reviews:
+  /answers/{id}/reviews:
     post:
       description: >-
         Submits a peer review to an answer.
@@ -309,27 +293,19 @@ paths:
         201:
           description: ''
       parameters:
-        - name: idAssignment
-          in: path
-          required: true
-          type: integer
-        - name: idTask
+        - name: id
           in: path
           required: true
           type: integer
     get:
       description: >-
-        Gets all peer reviews of an answer.
+        Gets the peer review of an answer.
       summary: Get all peer reviews
       responses:
         200:
           description: A JSON object representing a peer review.
       parameters:
-        - name: idAssignment
-          in: path
-          required: true
-          type: integer
-        - name: idTask
+        - name: id
           in: path
           required: true
           type: integer
