@@ -300,7 +300,7 @@ paths:
           in: path
           required: true
           type: integer
-  /assignments/{idAssignment}/tasks/{idTask}/answers/review:
+  /assignments/{idAssignment}/tasks/{idTask}/answers/reviews:
     post:
       description: >-
         Submits a peer review to an answer.
@@ -332,4 +332,45 @@ paths:
         - name: idTask
           in: path
           required: true
+          type: integer
+  /marks:
+    post:
+      description: >-
+        Gives a mark for an assignment made by a student.
+      summary: Give a mark
+      responses:
+        201:
+          description: ''
+      parameters:
+        - name: mark
+          in: body
+          required: true
+          schema:
+            type: array
+            items:
+              type: object
+              required:
+              - userId
+              - assignementId
+              - mark
+              properties:
+                userId:
+                  type: integer
+                assignmentId:
+                  type: integer
+                mark:
+                  type: integer 
+    get:
+      description: >-
+        Gets marks. It is possible to get the makrs for all the assignemnts a user has taken, or the mark for a specific exam.
+      summary: Get marks
+      responses:
+        200:
+          description: An array of JSON objects representing marks.
+      parameters:
+        - in: query
+          name: userId
+          type: integer
+        - in: query
+          name: assignmentId
           type: integer
