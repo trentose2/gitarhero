@@ -93,9 +93,9 @@ paths:
         200:
           description: An array of JSON objects representing groups
   /groups/{id}/:
-    patch:
+    put:
       description: >-
-        Updates the list of members of a group.
+        Updates the list of members of a group. A JSON object containing the changes only must be passed along the request.
       summary: Update group members
       responses:
         200:
@@ -174,9 +174,9 @@ paths:
           in: path
           required: true
           type: integer
-    patch:
+    put:
       description: >-
-        Updates a specific assignment, marking it as closed, adding or removing a task or the task list.
+        Updates a specific assignment, marking it as closed, adding or removing a task or the task list. A JSON object containing the changes only must be passed along the request.ch 
       summary: Update assignment
       responses:
         200:
