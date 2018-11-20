@@ -218,6 +218,11 @@ paths:
             type: array
             items:
               $ref: '#/definitions/Assignment'
+      parameters:
+        - in: query
+          name: userId
+          type: integer
+          description: 'Optional parameter. The user ID is used to restrict the results of the request'
   /assignments/{id}:
     get:
       description: >-
