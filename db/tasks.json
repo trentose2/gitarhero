@@ -1,0 +1,296 @@
+[
+    {
+        id: 1,
+        type: "Multiple choice"
+        topic: "English"
+        question: ["I'm from Italy", "I is from Italy", "I are from Italy"],
+        answer: 0
+    },
+    {
+        id: 2,
+        type: "Multiple choice"
+        topic: "English"
+        question: ["I have 20 years old", "I is 20 years old", "I'm 20 years old"],
+        answer: 2
+    },
+    {
+        id: 3,
+        type: "Multiple choice"
+        topic: "English"
+        question: ["It's a American car", "It's an American car", "It's American car"],
+        answer: 1
+    },
+    {
+        id: 4,
+        type: "Multiple choice"
+        topic: "English"
+        question: ["There a red car", "There are a red car", "There is a red car"],
+        answer: 2
+    },
+    {
+        id: 5,
+        type: "Multiple choice"
+        topic: "English"
+        question: ["Is this your sister? What's his name?", "Is this your sister? What's her name?", "Is this your sister? What's their name?"],
+        answer: 2
+    },
+    {
+        id: 6,
+        type: "Multiple choice"
+        topic: "English"
+        question: ["Please be quiet. I study English.", "Please be quiet. I am studying English.", "Please be quiet. I am study English."],
+        answer: 1
+    },
+    {
+        id: 7,
+        type: "Multiple choice"
+        topic: "English"
+        question: ["Who's his name? John.", "What's his name? John.", "Where's his name? John."],
+        answer: 1
+    },
+    {
+        id: 8,
+        type: "Multiple choice"
+        topic: "English"
+        question: ["How many are you? I'm 18.", "How old are you? I'm 18.", "How much are you? I'm 18."],
+        answer: 1
+    },
+    {
+        id: 9,
+        type: "Multiple choice"
+        topic: "English"
+        question: ["Does he go to work by bus? Yes, he does.", "Do he go to work by bus? Yes he does.", "Is he go to work by bus? Yes, he does."],
+        answer: 0
+    },
+    {
+        id: 10,
+        type: "Multiple choice"
+        topic: "English"
+        question: ["The children is happy.", "The children are happy.", "The children am happy."],
+        answer: 1
+    },
+    {
+        id: 11,
+        type: "Multiple choice"
+        topic: "English"
+        question: ["You are German? Yes, I am.", "Is you German? Yes, I am.", "Are you Geran? Yes, I am."],
+        answer: 2
+    },
+    {
+        id: 12,
+        type: "Multiple choice"
+        topic: "English"
+        question: ["Mark speak English.", "Mark speaking English.", "Mark speaks English."],
+        answer: 2
+    },
+    {
+        id: 13,
+        type: "Multiple choice"
+        topic: "English"
+        question: ["She goes to school in bus.", "She goes to school on bus.", "She goes to school by bus.", "She goes to school with bus."],
+        answer: 2
+    },
+    {
+        id: 14,
+        type: "Multiple choice"
+        topic: "English"
+        question: ["They can to speak English well.", "They able to speak English well.", "They can speak English well.", "They is able speak English well."],
+        answer: 2
+    },
+    {
+        id: 15,
+        type: "Multiple choice"
+        topic: "English"
+        question: ["John is most intelligent that James.", "John is more intelligent than James.", "John is better intelligent than James.", "John is well intelligent that James."],
+        answer: 1
+    },
+    {
+        id: 16,
+        type: "Multiple choice"
+        topic: "English"
+        question: ["Don't take that book. It is of me.", "Don't take that book. It is mine.", "Don't take that book. It is my.", "Don't take that book. It is to me."],
+        answer: 1
+    },
+    {
+        id: 17,
+        type: "Multiple choice"
+        topic: "English"
+        question: ["I have a lot money in the bank.", "I have many money in the bank.", "I have any money in the bank.", "I have some money in the bank."],
+        answer: 3
+    },
+    {
+        id: 18,
+        type: "Multiple choice"
+        topic: "English"
+        question: ["They play tennis yesterday.", "They played tennis yesterday.", "They was playing yesterday.", "They had been playing tennis yesterday."],
+        answer: 1
+    },
+    {
+        id: 19,
+        type: "Multiple choice"
+        topic: "English"
+        question: ["Went you to the pub last night?", "Did you go to the pub last night?", "Did you went to the pub last night?", "Have you gone to the pub last night?"],
+        answer: 1
+    },
+    {
+        id: 20,
+        type: "Multiple choice"
+        topic: "English"
+        question: ["I lost my passport.", "I have lost my passport.", "I have been lost my passport.", "I am lost my passport."],
+        answer: 1
+    },
+    {
+        id: 11,
+        type: "Multiple choice"
+        topic: "English"
+        question: ["They not finished their work yet.", "They haven't been finishing their work yet.", "They don't finish their work yet.", "They haven't finished their work yet."],
+        answer: 3
+    },
+    {
+        id: 22,
+        type: "Multiple choice"
+        topic: "English"
+        question: ["Paul likes very much his work.", "Paul likes his very much work.", "Paul likes very his much work.", "Paul likes his work very much."],
+        answer: 3
+    },
+    {
+        id: 23,
+        type: "Multiple choice"
+        topic: "English"
+        question: ["On no account you must speak to the driver.", "On no account you must to speak to the driver.", "On no account must you speak to the driver.", "On no account must you to speak to the driver."],
+        answer: 2
+    },
+    {
+        id: 24,
+        type: "Multiple choice"
+        topic: "English"
+        question: ["Who lived in the house?", "Who did live in the house?", "Who live in the house?", "Who does live in the house?"],
+        answer: 0
+    },
+    {
+        id: 25,
+        type: "Multiple choice"
+        topic: "English"
+        question: ["Alan was feeling sick because he ate too much.", "Alan was feeling sick because he had eaten too much.", "Alan was feeling sick because he has eaten too much.", "Alan was feeling sick because he was eaten too much."],
+        answer: 0
+    },
+    {
+        id: 26,
+        type: "Multiple choice"
+        topic: "English"
+        question: ["What are you doing tomorrow night?", "What will you do tomorrow night?", "What do you do tomorrow night?", "What you will do tomorrow night?"],
+        answer: 0
+    },
+    {
+        id: 27,
+        type: "Multiple choice"
+        topic: "English"
+        question: ["Your bag is heavy, I will carry it for you!", "Your bag is heavy, I carry it for you", "Your bag is heavy, I am going to carry it for you!", "Your bag is heavy, I don't carry it for you!"],
+        answer: 0
+    },
+    {
+        id: 28,
+        type: "Multiple choice"
+        topic: "English"
+        question: ["If I knew her address, I would send her a postcard", "If I knew her address, I would have sent her a postcard", "If I knew her address, I would sent her a postcard", "If I knew her address, I would send her a postcard"],
+        answer: 0
+    },
+    {
+        id: 29,
+        type: "Multiple choice"
+        topic: "English"
+        question: ["If they hadn't had gone to Australia, they'd still be here", "If they needn't have gone to Australia, they'd still be here", "If they hadn't had to go to Australia, they'd still be there", "If they didn't had to go to Australia, they'd still be here"],
+        answer: 2
+    },
+    {
+        id: 30,
+        type: "Multiple choice"
+        topic: "English"
+        question: ["Some new houses are being built opposite the park", "Some new houses have been to build opposite the park", "Some new houses have being build opposite the park", "Some new houses have been build opposite the park"],
+        answer: 0
+    },
+    {
+        id: 31,
+        type: "Multiple choice"
+        topic: "English"
+        question: ["Not many peole enjoy be criticised", "Not many people enjoy been criticised", "Not many people enjoy to be criticised", "Not many people enjoy being criticised"],
+        answer: 3
+    },
+    {
+        id: 32,
+        type: "Multiple choice"
+        topic: "English"
+        question: ["While you were cooking, Mary had listened to the radio", "While you were cooking, Mary is listening to the radio", "While you were cooking, Mary has to listen the radio", "While you were cooking, Mary was listening to the raio"],
+        answer: 3
+    },
+    {
+        id: 33,
+        type: "Open question"
+        topic: "English"
+        question: "Il caffè è freddo.",
+        answer: "The coffee is cold."
+    },
+    {
+        id: 34,
+        type: "Open questione"
+        topic: "English"
+        question: "Che fai? Faccio colazione!",
+        answer: "What are you doing? I am having breakfast!"
+    },
+    {
+        id: 35,
+        type: "Open question"
+        topic: "English"
+        question: "Che fa Andrew? Sta lavorando?",
+        answer: "What is Andrew doing? Is he working?"
+    },
+    {
+        id: 36,
+        type: "Open question"
+        topic: "English"
+        question: "Quando ero bambino avevo un gatto e un cane.",
+        answer: "When I was a child, I had a cat and a dog."
+    },
+    {
+        id: 37,
+        type: "Open question"
+        topic: "English"
+        question: "Ieri non abbiamo fatto i compiti.",
+        answer: "We haven't done our homework yesterday."
+    },
+    {
+        id: 38,
+        type: "Open question"
+        topic: "English"
+        question: "Non ho letto il giornale.",
+        answer: "I didn't read the newspaper."
+    },
+    {
+        id: 38,
+        type: "Open question"
+        topic: "English"
+        question: "Tom voleva sapere se il taxi era arrivato.",
+        answer: "Tom wanted to know if the taxi had arrived"
+    },
+    {
+        id: 39,
+        type: "Open question"
+        topic: "English"
+        question: "Siamo in ritardo, perderemo il treno!",
+        answer: "We are late, we are going to lose the train!"
+    },
+    {
+        id: 40,
+        type: "Open question"
+        topic: "English"
+        question: "Non ci saremmo persi se avessimo usato una mappa.",
+        answer: "We wouldn't be lost if we used a map."
+    },
+    {
+        id: 41,
+        type: "Open question"
+        topic: "English"
+        question: "La finale si gioca martedì prossimo.",
+        answer: "The final is going to be played next Tuesday."
+    },
+]
