@@ -2,12 +2,12 @@ swagger: '2.0'
 info:
   version: '1.0'
   title: "Gitarhero API"
-  description: If you are reading this documentation, you already know what it is meant for.
+  description: Gitarhero is an API for managing exams. Every exam has a number of associated tasks, or exercise.
   license:
     name: MIT
-    url: https://github.com/apiaryio/polls-api/blob/master/LICENSE
-host: api.gitarhero.org
-basePath: /
+    url: https://github.com/matteocontrini/gitarhero/blob/master/LICENSE
+host: gitarhero-api.herokuapp.com
+basePath: /api/v1
 schemes:
 - http
 consumes:
@@ -18,8 +18,8 @@ paths:
   /users:
     post:
       description: >-
-        Lets newcomer register with the application.
-      summary: Register
+        Creates a new user in the system.
+      summary: Create a new user
       parameters:
         - name: register
           in: body
@@ -31,41 +31,46 @@ paths:
               - surname
               - username
               - email
-              - password
             properties:
               name:
                 type: string
+                description: 'First name of the user'
               surname:
                 type: string
+                description: 'Last name of the user'
               username:
                 type: string
+                description: 'Username of the user'
               email:
                 type: string
-              password:
-                type: string
+                description: 'Email address of the user'
       responses:
         201:
-          description: ''
+          description: 'The created user'
+          schema:
+            $ref: '#/definitions/User'
+
+  /users/{id}:
     get:
       description: >-
-        Gets a user's profile.
-      summary: Get a user's profile
+        Gets information about a specific user, identified by an ID
+      summary: Get a user
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: integer
+          description: 'ID of the requested user'
       responses:
         200:
-          description: 'A JSON object representing a user profile.'
-  /users/me:
-    get:
-      description: >-
-        Gets a user personal profile.
-      summary: Get personal profile
-      responses:
-        200:
-          description: A JSON object representing a user's personal profile
+          description: 'The user corresponding to the input ID'
+          schema:
+            $ref: '#/definitions/User'
   /groups:
     post:
       description: >-
         Creates a group of candidates. Candidates of a group are able to take the associated assignments.
-      summary: Create a new group
+      summary: Create a group
       parameters:
         - name: group
           in: body
@@ -78,40 +83,90 @@ paths:
             properties:
               name:
                 type: string
+                description: 'Name of the group'
               members:
                 type: array
+                description: 'Array of user IDs, representing the members of the group'
                 items:
                   type: integer
+                  description: 'ID of a user'
       responses:
         201:
-          description: ''
+          description: 'The created group'
+          schema:
+            $ref: '#/definitions/Group'
     get:
       description: >-
-        Gets the groups. If the user issuing this request is a teacher, then the list represents groups that the teacher themselves have created; if it is a student, then the list represents the groups that the student themselves belong to.
+        Gets the list of the groups. Optionally, you can pass the ID of the user as a parameter. If the passed user is a teacher, then the list represents groups that the teacher has created; if it is a student, then the list represents the groups that the student belongs to.
       summary: Get groups
+      parameters:
+        - in: query
+          name: userId
+          type: integer
+          description: 'Optional parameter. The user ID is used to restrict the results of the request'
       responses:
         200:
-          description: An array of JSON objects representing groups
-  /groups/{id}/members:
-    get:
+          description: A collection of groups
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Group'
+  /groups/{id}/:
+    put:
       description: >-
-        Gets the list of members of a group. If the user issuing this request is a teacher, then the list represents the members of a group that the teacher themselves have created; if it is a student, then the list represents the memebrs of a group that the student themselves belong to.
-      summary: Get group members
-      responses:
-        200:
-          description: An array of integers representing user IDs.
+        Updates the information of a group. The request body contains only the fields that should be changed.
+      summary: Update a group
       parameters:
         - name: id
           in: path
           required: true
           type: integer
+          description: 'ID of the group to update'
+        - name: group
+          in: body
+          required: true
+          schema:
+            type: object
+            properties:
+              name:
+                type: string
+                description: 'New name for the group'
+              members:
+                type: array
+                description: 'Array of user IDs, representing the members of the group'
+                items:
+                  type: integer
+                  description: 'ID of a user'
+      responses:
+        200:
+          description: 'The updated group'
+          schema:
+            $ref: '#/definitions/Group'
+  /groups/{id}/members:
+    get:
+      description: >-
+        Gets the list of members of a group
+      summary: Get group members
+      responses:
+        200:
+          description: 'Collection of users'
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/User'
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: integer
+          description: 'ID of the requested group'
   /assignments:
     post:
       description: >-
         Creates an assignment.
-      summary: Create an assignment.
+      summary: Create an assignment
       parameters:
-        - name: exam
+        - name: assignment
           in: body
           required: true
           schema:
@@ -125,42 +180,81 @@ paths:
             properties:
               name:
                 type: string
+                description: 'Name for the assignment'
               tasks:
                 type: array
+                description: 'Tasks that should be included in the assignment'
                 items:
                   type: integer
+                  description: 'ID of a task'
               groups:
                 type: array
+                description: 'Groups that will be able to complete this assignemnt'
                 items:
                   type: integer
+                  description: 'ID of a group'
               deadline:
                 type: string
+                description: 'Datetime of the deadline in ISO 8601 format'
               status:
                 type: string
                 enum: [open, closed]
+                description: 'Defined whether the assignment is open for replies or not'
       responses:
         201:
-          description: ''
+          description: 'The created assignment'
+          schema:
+            $ref: '#/definitions/Assignment'
     get:
       description: >-
-        Get assignments. If the user issuing this request is a teacher, then the list represents the assignments they have created; if it is a student, then the list represents the assignments they have to complete. An assignment has content such as assignment name, deadline, tasks.
+        Gets the list of assignments. Optionally, you can pass the ID of the user as a parameter.
+        If the passed user is a teacher, then the list represents assignments that the teacher has created;
+        if it is a student, then the list represents the assignments they have to complete.
       summary: Get assignments
       responses:
         200:
-          description: An array of JSON objects representing assignments.
+          description: 'Collection of assignments'
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Assignment'
+      parameters:
+        - in: query
+          name: userId
+          type: integer
+          description: 'Optional parameter. The user ID is used to restrict the results of the request'
   /assignments/{id}:
     get:
       description: >-
-        Gets a specific assignment. An assignment has content such as assignment name, deadline, tasks.
-      summary: Get assignment
+        Gets information about a specific assignment
+      summary: Get an assignment
       responses:
         200:
-          description: A JSON object representing an assignment.
+          description: 'The assignment corresponding to the input ID'
+          schema:
+            $ref: '#/definitions/Assignment'
       parameters:
         - name: id
           in: path
           required: true
           type: integer
+          description: 'ID of the requested assignment'
+    put:
+      description: >-
+        Updates a specific assignment, changing properties like its name, the status (open/closed),
+        and the list of tasks. In the request, send only the fields that you want to change.
+      summary: Update assignment
+      responses:
+        200:
+          description: 'The updated assignment'
+          schema:
+            $ref: '#/definitions/Assignment'
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: integer
+          description: 'ID of the assignment to modify'
     delete:
       description: >-
         Deletes an assignment.
@@ -173,17 +267,46 @@ paths:
           in: path
           required: true
           type: integer
+          description: 'ID of the assignment to delete'
   /tasks:
     post:
       description: >-
         Creates a new task. A task is a question or an exercise.
-      summary: Create a task.
+      summary: Create a task
+      parameters:
+        - name: task
+          in: body
+          required: true
+          schema:
+            type: object
+            required:
+              - type
+              - question
+              - answer
+            properties:
+              type:
+                type: string
+                enum: [open, choice]
+                description: 'Type of the question'
+              question:
+                type: string
+                description: 'Question of the task'
+              choices:
+                type: array
+                description: 'Possibile choices'
+                items:
+                  type: string
+              answer:
+                type: string
+                description: 'The correct answer. May be an index pointing to a choice'
       responses:
         201:
-          description: ''
+          description: 'The created task'
+          schema:
+            $ref: '#/definitions/Task'
     delete:
       description: >-
-        Deletes all tasks.
+        Deletes all the tasks.
       summary: Delete all tasks
       responses:
         204:
@@ -192,7 +315,7 @@ paths:
     delete:
       description: >-
         Deletes a task.
-      summary: Delete a task.
+      summary: Delete a task
       responses:
         204:
           description: ''
@@ -201,33 +324,339 @@ paths:
           in: path
           required: true
           type: integer
-  /assignments/{id}/tasks:
-    get:
+          description: 'ID of the task to delete'
+    put:
       description: >-
-        Gets the list of the tasks composing an exam.
-      summary: Get an exam's tasks
-      responses:
-        200:
-          description: An array of JSON objects representing tasks.
+        Updates a task.
+      summary: Update a task
       parameters:
         - name: id
           in: path
           required: true
           type: integer
-  /assignments/{idA}/answers/{idT}:
-    get:
-      description: >-
-        Gets an answer previously gave for a specific question.
-      summary: Get a previously submitted answer
+        - name: task
+          in: body
+          required: true
+          schema:
+            type: object
+            required:
+              - type
+              - question
+              - answer
+            properties:
+              type:
+                type: string
+                enum: [open, choice]
+                description: 'Type of the question'
+              question:
+                type: string
+                description: 'Question of the task'
+              choices:
+                type: array
+                description: 'Possibile choices'
+                items:
+                  type: string
+              answer:
+                type: string
+                description: 'The correct answer. May be an index pointing to a choice'
       responses:
         200:
-          description: A JSON object representing an answer.
+          description: 'The updated task'
+          schema:
+            $ref: '#/definitions/Task'
+  /assignments/{id}/tasks:
+    get:
+      description: >-
+        Gets the list of the tasks composing an assignment.
+      summary: Get an assignment's tasks
+      responses:
+        200:
+          description: 'The list of tasks'
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Task'
       parameters:
-        - name: idA
+        - name: id
           in: path
           required: true
           type: integer
-        - name: idT
+  /answers:
+    post:
+      description: >-
+        Submits an answer to a specific task and assignment.
+      summary: Submit an answer
+      parameters:
+        - name: task
+          in: body
+          required: true
+          schema:
+            type: object
+            required:
+              - userId
+              - taskId
+              - assignmentId
+              - answer
+            properties:
+              userId:
+                type: integer
+                description: 'ID of the user sending the answer'
+              assignmentId:
+                type: integer
+                description: 'ID of the assignment for which the answer is being sent'
+              taskId:
+                type: integer
+                description: 'ID of the task for which the answer is being sent'
+              answer:
+                type: string
+                description: 'The text answer, or the index pointing to a choice'
+      responses:
+        201:
+          description: ''
+  /answers/{id}:
+    get:
+      description: >-
+        Gets an answer that was previously submitted to a specific task.
+      summary: Get a submitted answer
+      responses:
+        200:
+          description: 'The requested answer'
+          schema:
+            $ref: '#/definitions/Answer'
+      parameters:
+        - name: id
           in: path
           required: true
           type: integer
+    delete:
+      description: >-
+        Deletes an answer. All peer reviews for that answer get cancelled too.
+      summary: Delete an answer
+      responses:
+        204:
+          description: ''
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: integer
+  /answers/{id}/reviews:
+    post:
+      description: >-
+        Submits a peer review to an answer.
+      summary: Submit a peer review
+      responses:
+        201:
+          description: ''
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: integer
+        - name: review
+          in: body
+          required: true
+          schema:
+            type: object
+            required:
+              - text
+            properties:
+              text:
+                type: string
+                description: 'Text for the peer review'
+    get:
+      description: >-
+        Gets all the peer reviews for an answer.
+      summary: Get all peer reviews
+      responses:
+        200:
+          description: 'The requested peer review'
+          schema:
+            $ref: '#/definitions/Review'
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: integer
+  /marks:
+    post:
+      description: >-
+        Gives a mark for an assignment made by a student.
+      summary: Give a mark
+      responses:
+        201:
+          description: ''
+      parameters:
+        - name: mark
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/Mark'
+    get:
+      description: >-
+        Gets marks. It is possible to get the marks for all the assignments a user has taken,
+        or the mark for a specific exam.
+      summary: Get marks
+      responses:
+        200:
+          description: 'A collection of marks'
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Mark'
+      parameters:
+        - in: query
+          name: userId
+          type: integer
+        - in: query
+          name: assignmentId
+          type: integer
+          
+definitions:
+  User:
+    type: object
+    required:
+      - id
+      - name
+      - surname
+      - username
+      - email
+    properties:
+      id:
+        type: integer
+        description: 'ID of the user'
+      name:
+        type: string
+        description: 'Name of the user'
+      surname:
+        type: string
+        description: 'Last name of the user'
+      username:
+        type: string
+        description: 'Username of the user'
+      email:
+        type: string
+        description: 'Email address of the user'
+  Group:
+    type: object
+    required:
+      - id
+      - name
+      - members
+    properties:
+      id:
+        type: integer
+        description: 'ID of the group'
+      name:
+        type: string
+        description: 'Name of the group'
+      members:
+        type: array
+        description: 'Array of users belonging to the group'
+        items:
+          type: integer
+          description: 'ID of a user'
+  Assignment:
+    type: object
+    required:
+      - name
+      - tasks
+      - groups
+      - deadline
+      - status
+    properties:
+      name:
+        type: string
+        description: 'Name for the assignment'
+      tasks:
+        type: array
+        description: 'Tasks that should be included in the assignment'
+        items:
+          type: integer
+          description: 'ID of a task'
+      groups:
+        type: array
+        description: 'Groups that will be able to complete this assignemnt'
+        items:
+          type: integer
+          description: 'ID of a group'
+      deadline:
+        type: string
+        description: 'Datetime of the deadline in ISO 8601 format'
+      status:
+        type: string
+        enum: [open, closed]
+        description: 'Defined whether the assignment is open for replies or not'
+
+  Task:
+    type: object
+    required:
+      - type
+      - question
+      - answer
+    properties:
+      type:
+        type: string
+        enum: [open, choice]
+        description: 'Type of the question'
+      question:
+        type: string
+        description: 'Question of the task'
+      choices:
+        type: array
+        description: 'Possibile choices'
+        items:
+          type: string
+      answer:
+        type: string
+        description: 'The correct answer. May be an index pointing to a choice'
+  
+  Answer:
+    type: object
+    required:
+      - userId
+      - taskId
+      - assignmentId
+      - answer
+    properties:
+      userId:
+        type: integer
+        description: 'ID of the user sending the answer'
+      assignmentId:
+        type: integer
+        description: 'ID of the assignment for which the answer is being sent'
+      taskId:
+        type: integer
+        description: 'ID of the task for which the answer is being sent'
+      answer:
+        type: string
+        description: 'The text answer, or the index pointing to a choice'
+
+  Review:
+    type: object
+    required:
+      - text
+    properties:
+      text:
+        type: string
+        description: 'Text for the peer review'
+
+  Mark:
+    type: object
+    required:
+    - userId
+    - assignmentId
+    - mark
+    properties:
+      userId:
+        type: integer
+        description: 'ID of the user the mark has been given to'
+      assignmentId:
+        type: integer
+        description: 'ID of the assignment'
+      mark:
+        type: string
+        description: 'The given mark value'
+      text:
+        type: string
+        description: 'Comment associated to the mark'
