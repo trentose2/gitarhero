@@ -1,0 +1,66 @@
+PS C:\Users\andre\Documents\gitarhero> npm test
+
+> gitarhero@1.0.0 test C:\Users\andre\Documents\gitarhero
+> jest
+
+ PASS  lib/app.test.js
+ FAIL  lib/marks.test.js
+  ? Console
+
+    console.log lib/marks.test.js:55
+      { Error: cannot GET /api/v1/marks?userId=12 (500)
+          at Response.Object.<anonymous>.Response.toError (C:\Users\andre\Documents\gitarhero\node_modules\superagent\lib\node\response.js:94:15)
+          at Response.Object.<anonymous>.ResponseBase._setStatusProperties (C:\Users\andre\Documents\gitarhero\node_modules\superagent\lib\response-base.js:123:16)
+          at new Response (C:\Users\andre\Documents\gitarhero\node_modules\superagent\lib\node\response.js:41:8)
+          at Test.Object.<anonymous>.Request._emitResponse (C:\Users\andre\Documents\gitarhero\node_modules\superagent\lib\node\index.js:752:20)
+          at IncomingMessage.parser (C:\Users\andre\Documents\gitarhero\node_modules\superagent\lib\node\index.js:916:38)
+          at emitNone (events.js:111:20)
+          at IncomingMessage.emit (events.js:208:7)
+          at endReadableNT (_stream_readable.js:1064:12)
+          at _combinedTickCallback (internal/process/next_tick.js:139:11)
+          at process._tickCallback (internal/process/next_tick.js:181:9)
+        status: 500,
+        text: '<!DOCTYPE html>\n<html lang="en">\n<head>\n<meta charset="utf-8">\n<title>Error</title>\n</head>\n<body>\n<pre>ReferenceError: queriedMark is not defined<br> &nbsp; &nbsp;at queriedMark (C:\\Users\\andre\\Documents\\gitarhero\\lib\\marks.js:45:29)<br> &nbsp; &nbsp;at Layer.handle [as handle_request] (C:\\Users\\andre\\Documents\\gitarhero\\node_modules\\express\\lib\\router\\layer.js:95:5)<br> &nbsp; &nbsp;at next (C:\\Users\\andre\\Documents\\gitarhero\\node_modules\\express\\lib\\router\\route.js:137:13)<br> &nbsp; &nbsp;at Route.dispatch (C:\\Users\\andre\\Documents\\gitarhero\\node_modules\\express\\lib\\router\\route.js:112:3)<br> &nbsp; &nbsp;at Layer.handle [as handle_request] (C:\\Users\\andre\\Documents\\gitarhero\\node_modules\\express\\lib\\router\\layer.js:95:5)<br> &nbsp; &nbsp;at C:\\Users\\andre\\Documents\\gitarhero\\node_modules\\express\\lib\\router\\index.js:281:22<br> &nbsp; &nbsp;at Function.process_params (C:\\Users\\andre\\Documents\\gitarhero\\node_modules\\express\\lib\\router\\index.js:335:12)<br> &nbsp; &nbsp;at next (C:\\Users\\andre\\Documents\\gitarhero\\node_modules\\express\\lib\\router\\index.js:275:10)<br> &nbsp; &nbsp;at jsonParser (C:\\Users\\andre\\Documents\\gitarhero\\node_modules\\body-parser\\lib\\types\\json.js:110:7)<br> &nbsp; &nbsp;at Layer.handle [as handle_request] (C:\\Users\\andre\\Documents\\gitarhero\\node_modules\\express\\lib\\router\\layer.js:95:5)<br> &nbsp; &nbsp;at trim_prefix (C:\\Users\\andre\\Documents\\gitarhero\\node_modules\\express\\lib\\router\\index.js:317:13)<br> &nbsp; &nbsp;at C:\\Users\\andre\\Documents\\gitarhero\\node_modules\\express\\lib\\router\\index.js:284:7<br> &nbsp; &nbsp;at Function.process_params (C:\\Users\\andre\\Documents\\gitarhero\\node_modules\\express\\lib\\router\\index.js:335:12)<br> &nbsp; &nbsp;at next (C:\\Users\\andre\\Documents\\gitarhero\\node_modules\\express\\lib\\router\\index.js:275:10)<br> &nbsp; &nbsp;at expressInit (C:\\Users\\andre\\Documents\\gitarhero\\node_modules\\express\\lib\\middleware\\init.js:40:5)<br> &nbsp; &nbsp;at Layer.handle [as handle_request] (C:\\Users\\andre\\Documents\\gitarhero\\node_modules\\express\\lib\\router\\layer.js:95:5)<br> &nbsp; &nbsp;at trim_prefix (C:\\Users\\andre\\Documents\\gitarhero\\node_modules\\express\\lib\\router\\index.js:317:13)<br> &nbsp; &nbsp;at C:\\Users\\andre\\Documents\\gitarhero\\node_modules\\express\\lib\\router\\index.js:284:7<br> &nbsp; &nbsp;at Function.process_params (C:\\Users\\andre\\Documents\\gitarhero\\node_modules\\express\\lib\\router\\index.js:335:12)<br> &nbsp; &nbsp;at next (C:\\Users\\andre\\Documents\\gitarhero\\node_modules\\express\\lib\\router\\index.js:275:10)<br> &nbsp; &nbsp;at query (C:\\Users\\andre\\Documents\\gitarhero\\node_modules\\express\\lib\\middleware\\query.js:45:5)<br> &nbsp; &nbsp;at Layer.handle [as handle_request] (C:\\Users\\andre\\Documents\\gitarhero\\node_modules\\express\\lib\\router\\layer.js:95:5)<br> &nbsp; &nbsp;at trim_prefix (C:\\Users\\andre\\Documents\\gitarhero\\node_modules\\express\\lib\\router\\index.js:317:13)<br> &nbsp; &nbsp;at C:\\Users\\andre\\Documents\\gitarhero\\node_modules\\express\\lib\\router\\index.js:284:7<br> &nbsp; &nbsp;at Function.process_params (C:\\Users\\andre\\Documents\\gitarhero\\node_modules\\express\\lib\\router\\index.js:335:12)<br> &nbsp; &nbsp;at next (C:\\Users\\andre\\Documents\\gitarhero\\node_modules\\express\\lib\\router\\index.js:275:10)<br> &nbsp; &nbsp;at Function.handle (C:\\Users\\andre\\Documents\\gitarhero\\node_modules\\express\\lib\\router\\index.js:174:3)<br> &nbsp; &nbsp;at Function.handle (C:\\Users\\andre\\Documents\\gitarhero\\node_modules\\express\\lib\\application.js:174:10)<br> &nbsp; &nbsp;at Server.app (C:\\Users\\andre\\Documents\\gitarhero\\node_modules\\express\\lib\\express.js:39:9)<br> &nbsp; &nbsp;at emitTwo (events.js:126:13)<br> &nbsp; &nbsp;at Server.emit (events.js:214:7)<br> &nbsp; &nbsp;at parserOnIncoming (_http_server.js:634:12)<br> &nbsp; &nbsp;at HTTPParser.parserOnHeadersComplete (_http_common.js:117:17)</pre>\n</body>\n</html>\n',
+        method: 'GET',
+        path: '/api/v1/marks?userId=12' }
+    console.log lib/marks.test.js:112
+      { Error: cannot GET /api/v1/marks?userId=12&assignmentId=5 (500)
+          at Response.Object.<anonymous>.Response.toError (C:\Users\andre\Documents\gitarhero\node_modules\superagent\lib\node\response.js:94:15)
+          at Response.Object.<anonymous>.ResponseBase._setStatusProperties (C:\Users\andre\Documents\gitarhero\node_modules\superagent\lib\response-base.js:123:16)
+          at new Response (C:\Users\andre\Documents\gitarhero\node_modules\superagent\lib\node\response.js:41:8)
+          at Test.Object.<anonymous>.Request._emitResponse (C:\Users\andre\Documents\gitarhero\node_modules\superagent\lib\node\index.js:752:20)
+          at IncomingMessage.parser (C:\Users\andre\Documents\gitarhero\node_modules\superagent\lib\node\index.js:916:38)
+          at emitNone (events.js:111:20)
+          at IncomingMessage.emit (events.js:208:7)
+          at endReadableNT (_stream_readable.js:1064:12)
+          at _combinedTickCallback (internal/process/next_tick.js:139:11)
+          at process._tickCallback (internal/process/next_tick.js:181:9)
+        status: 500,
+        text: '<!DOCTYPE html>\n<html lang="en">\n<head>\n<meta charset="utf-8">\n<title>Error</title>\n</head>\n<body>\n<pre>ReferenceError: queriedMark is not defined<br> &nbsp; &nbsp;at queriedMark (C:\\Users\\andre\\Documents\\gitarhero\\lib\\marks.js:45:29)<br> &nbsp; &nbsp;at Layer.handle [as handle_request] (C:\\Users\\andre\\Documents\\gitarhero\\node_modules\\express\\lib\\router\\layer.js:95:5)<br> &nbsp; &nbsp;at next (C:\\Users\\andre\\Documents\\gitarhero\\node_modules\\express\\lib\\router\\route.js:137:13)<br> &nbsp; &nbsp;at Route.dispatch (C:\\Users\\andre\\Documents\\gitarhero\\node_modules\\express\\lib\\router\\route.js:112:3)<br> &nbsp; &nbsp;at Layer.handle [as handle_request] (C:\\Users\\andre\\Documents\\gitarhero\\node_modules\\express\\lib\\router\\layer.js:95:5)<br> &nbsp; &nbsp;at C:\\Users\\andre\\Documents\\gitarhero\\node_modules\\express\\lib\\router\\index.js:281:22<br> &nbsp; &nbsp;at Function.process_params (C:\\Users\\andre\\Documents\\gitarhero\\node_modules\\express\\lib\\router\\index.js:335:12)<br> &nbsp; &nbsp;at next (C:\\Users\\andre\\Documents\\gitarhero\\node_modules\\express\\lib\\router\\index.js:275:10)<br> &nbsp; &nbsp;at jsonParser (C:\\Users\\andre\\Documents\\gitarhero\\node_modules\\body-parser\\lib\\types\\json.js:110:7)<br> &nbsp; &nbsp;at Layer.handle [as handle_request] (C:\\Users\\andre\\Documents\\gitarhero\\node_modules\\express\\lib\\router\\layer.js:95:5)<br> &nbsp; &nbsp;at trim_prefix (C:\\Users\\andre\\Documents\\gitarhero\\node_modules\\express\\lib\\router\\index.js:317:13)<br> &nbsp; &nbsp;at C:\\Users\\andre\\Documents\\gitarhero\\node_modules\\express\\lib\\router\\index.js:284:7<br> &nbsp; &nbsp;at Function.process_params (C:\\Users\\andre\\Documents\\gitarhero\\node_modules\\express\\lib\\router\\index.js:335:12)<br> &nbsp; &nbsp;at next (C:\\Users\\andre\\Documents\\gitarhero\\node_modules\\express\\lib\\router\\index.js:275:10)<br> &nbsp; &nbsp;at expressInit (C:\\Users\\andre\\Documents\\gitarhero\\node_modules\\express\\lib\\middleware\\init.js:40:5)<br> &nbsp; &nbsp;at Layer.handle [as handle_request] (C:\\Users\\andre\\Documents\\gitarhero\\node_modules\\express\\lib\\router\\layer.js:95:5)<br> &nbsp; &nbsp;at trim_prefix (C:\\Users\\andre\\Documents\\gitarhero\\node_modules\\express\\lib\\router\\index.js:317:13)<br> &nbsp; &nbsp;at C:\\Users\\andre\\Documents\\gitarhero\\node_modules\\express\\lib\\router\\index.js:284:7<br> &nbsp; &nbsp;at Function.process_params (C:\\Users\\andre\\Documents\\gitarhero\\node_modules\\express\\lib\\router\\index.js:335:12)<br> &nbsp; &nbsp;at next (C:\\Users\\andre\\Documents\\gitarhero\\node_modules\\express\\lib\\router\\index.js:275:10)<br> &nbsp; &nbsp;at query (C:\\Users\\andre\\Documents\\gitarhero\\node_modules\\express\\lib\\middleware\\query.js:45:5)<br> &nbsp; &nbsp;at Layer.handle [as handle_request] (C:\\Users\\andre\\Documents\\gitarhero\\node_modules\\express\\lib\\router\\layer.js:95:5)<br> &nbsp; &nbsp;at trim_prefix (C:\\Users\\andre\\Documents\\gitarhero\\node_modules\\express\\lib\\router\\index.js:317:13)<br> &nbsp; &nbsp;at C:\\Users\\andre\\Documents\\gitarhero\\node_modules\\express\\lib\\router\\index.js:284:7<br> &nbsp; &nbsp;at Function.process_params (C:\\Users\\andre\\Documents\\gitarhero\\node_modules\\express\\lib\\router\\index.js:335:12)<br> &nbsp; &nbsp;at next (C:\\Users\\andre\\Documents\\gitarhero\\node_modules\\express\\lib\\router\\index.js:275:10)<br> &nbsp; &nbsp;at Function.handle (C:\\Users\\andre\\Documents\\gitarhero\\node_modules\\express\\lib\\router\\index.js:174:3)<br> &nbsp; &nbsp;at Function.handle (C:\\Users\\andre\\Documents\\gitarhero\\node_modules\\express\\lib\\application.js:174:10)<br> &nbsp; &nbsp;at Server.app (C:\\Users\\andre\\Documents\\gitarhero\\node_modules\\express\\lib\\express.js:39:9)<br> &nbsp; &nbsp;at emitTwo (events.js:126:13)<br> &nbsp; &nbsp;at Server.emit (events.js:214:7)<br> &nbsp; &nbsp;at parserOnIncoming (_http_server.js:634:12)<br> &nbsp; &nbsp;at HTTPParser.parserOnHeadersComplete (_http_common.js:117:17)</pre>\n</body>\n</html>\n',
+        method: 'GET',
+        path: '/api/v1/marks?userId=12&assignmentId=5' }
+
+  ? GET /marks?userId=12 should return 201 and the correspondent marks
+
+    expected "Content-Type" of "application/json; charset=utf-8", got "text/html; charset=utf-8"
+
+      at Test.Object.<anonymous>.Test._assertHeader (node_modules/supertest/lib/test.js:249:12)
+      at Test.Object.<anonymous>.Test._assertFunction (node_modules/supertest/lib/test.js:283:11)
+      at Test.Object.<anonymous>.Test.assert (node_modules/supertest/lib/test.js:173:18)
+      at Server.localAssert (node_modules/supertest/lib/test.js:131:12)
+
+  ? GET /marks?userId=12&assignmentId=5 should return 201 and the correspondent mark
+
+    expected "Content-Type" of "application/json; charset=utf-8", got "text/html; charset=utf-8"
+
+      at Test.Object.<anonymous>.Test._assertHeader (node_modules/supertest/lib/test.js:249:12)
+      at Test.Object.<anonymous>.Test._assertFunction (node_modules/supertest/lib/test.js:283:11)
+      at Test.Object.<anonymous>.Test.assert (node_modules/supertest/lib/test.js:173:18)
+      at Server.localAssert (node_modules/supertest/lib/test.js:131:12)
+
+Test Suites: 1 failed, 1 passed, 2 total
+Tests:       2 failed, 8 passed, 10 total
+Snapshots:   0 total
+Time:        3.976s
+Ran all test suites.
+npm ERR! Test failed.  See above for more details.
