@@ -1,4 +1,4 @@
-let people = [
+[
     {
         id: 1,
         role: 'admin',
@@ -8,7 +8,7 @@ let people = [
         email: 'matteo@contrini.it'
     },
     {
-        id: 3,
+        id: 2,
         role: 'admin',
         name: 'Alessandro',
         surname: 'Conti',
@@ -16,7 +16,7 @@ let people = [
         email: 'alessandro.conti.97@gmail.com'
     },
     {
-        id: 4,
+        id: 3,
         role: 'admin',
         name: 'Giovanni',
         surname: 'Tranquillini',
@@ -32,23 +32,23 @@ let people = [
         email: 'andreastedile97@gmail.com'
     },
     {
-        id: 4,
-        role: 'teacher',
-        name: 'James',
-        surname: 'Smith',
-        username: 'james94',
-        email: 'james.smith@gmail.com'
-    },
-    {
-        id: 4,
-        role: 'teacher',
-        name: 'James',
-        surname: 'Smith',
-        username: 'james94',
-        email: 'james.smith@gmail.com'
-    },
-    {
         id: 5,
+        role: 'teacher',
+        name: 'James',
+        surname: 'Smith',
+        username: 'james94',
+        email: 'james.smith@gmail.com'
+    },
+    {
+        id: 6,
+        role: 'teacher',
+        name: 'James',
+        surname: 'Smith',
+        username: 'james94',
+        email: 'james.smith@gmail.com'
+    },
+    {
+        id: 7,
         role: 'teacher',
         name: 'Mary',
         surname: 'Johnson',
@@ -56,7 +56,7 @@ let people = [
         email: 'mary.smith@gmail.com'
     },
     {
-        id: 6,
+        id: 8,
         role: 'teacher',
         name: 'John',
         surname: 'Williams',
@@ -64,7 +64,7 @@ let people = [
         email: 'john.williams@yahoo.com'
     },
     {
-        id: 7,
+        id: 9,
         role: 'teacher',
         name: 'Particia',
         surname: 'Jones',
@@ -72,7 +72,7 @@ let people = [
         email: 'patricia.jones@yahoo.com'
     },
     {
-        id: 8,
+        id: 10,
         role: 'student',
         name: 'Robert',
         surname: 'Brown',
@@ -80,7 +80,7 @@ let people = [
         email: 'robert.brown@gmail.com'
     },
     {
-        id: 9,
+        id: 11,
         role: 'student',
         name: 'Jennifer',
         surname: 'Davis',
@@ -88,7 +88,7 @@ let people = [
         email: 'jennifer.david@gmail.com'
     },
     {
-        id: 10,
+        id: 12,
         role: 'student',
         name: 'Michael',
         surname: 'Miller',
@@ -96,7 +96,7 @@ let people = [
         email: 'michael.miller@yahoo.com'
     },
     {
-        id: 11,
+        id: 13,
         role: 'student',
         name: 'Linda',
         surname: 'Wilson',
@@ -104,7 +104,7 @@ let people = [
         email: 'linda.wilson@yahoo.com'
     },
     {
-        id: 12,
+        id: 14,
         role: 'student',
         name: 'William',
         surname: 'Moore',
@@ -112,7 +112,7 @@ let people = [
         email: 'william.moore@gmail.com'
     },
     {
-        id: 13,
+        id: 15,
         role: 'student',
         name: 'Elizabeth',
         surname: 'Taylor',
@@ -120,7 +120,7 @@ let people = [
         email: 'elizabeth.taylor@gmail.com'
     },
     {
-        id: 14,
+        id: 16,
         role: 'student',
         name: 'David',
         surname: 'Anderson',
@@ -128,7 +128,7 @@ let people = [
         email: 'david.anderson@gmail.com'
     },
     {
-        id: 15,
+        id: 17,
         role: 'student',
         name: 'Barbara',
         surname: 'Thomas',
@@ -136,7 +136,7 @@ let people = [
         email: 'barbara.thomas@gmail.com'
     },
     {
-        id: 16,
+        id: 18,
         role: 'student',
         name: 'Richard',
         surname: 'Jackson',
@@ -144,7 +144,7 @@ let people = [
         email: 'richard.jackson@yahoo.com'
     },
     {
-        id: 17,
+        id: 19,
         role: 'student',
         name: 'Susan',
         surname: 'White',
@@ -152,7 +152,7 @@ let people = [
         email: 'susan.white@gmail.com'
     },
     {
-        id: 18,
+        id: 20,
         role: 'student',
         name: 'Joseph',
         surname: 'Harris',
@@ -160,7 +160,7 @@ let people = [
         email: 'joseph.harris@yahoo.com'
     },
     {
-        id: 19,
+        id: 21,
         role: 'student',
         name: 'Jessica',
         surname: 'Martin',
@@ -168,7 +168,7 @@ let people = [
         email: 'jessica.martin@yahoo.com'
     },
     {
-        id: 20,
+        id: 22,
         role: 'student',
         name: 'Thomas',
         surname: 'Thompson',
@@ -176,7 +176,7 @@ let people = [
         email: 'thomas.thompson@gmail.com'
     },
     {
-        id: 21,
+        id: 23,
         role: 'student',
         name: 'Sarah',
         surname: 'Garcia',
@@ -184,7 +184,7 @@ let people = [
         email: 'sarah.garcia@gmail.com'
     },
     {
-        id: 22,
+        id: 24,
         role: 'student',
         name: 'Charles',
         surname: 'Martinez',
@@ -192,7 +192,7 @@ let people = [
         email: 'charles.martinez@yahoo.com'
     },
     {
-        id: 23,
+        id: 25,
         role: 'student',
         name: 'Margaret',
         surname: 'Robinson',
@@ -200,7 +200,7 @@ let people = [
         email: 'margaret.robinson@yahoo.com'
     },
     {
-        id: 24,
+        id: 26,
         role: 'student',
         name: 'Christopher',
         surname: 'Clark',
@@ -208,7 +208,7 @@ let people = [
         email: 'cristopher.clark@gmail.com'
     },
     {
-        id: 25,
+        id: 27,
         role: 'student',
         name: 'Karen',
         surname: 'Rodriguez',
@@ -216,7 +216,7 @@ let people = [
         email: 'karen.rodriguez@gmail.com'
     },
     {
-        id: 26,
+        id: 28,
         role: 'student',
         name: 'Daniel',
         surname: 'Lewis',
@@ -224,7 +224,7 @@ let people = [
         email: 'daniel.lewis@yahoo.com'
     },
     {
-        id: 27,
+        id: 29,
         role: 'student',
         name: 'Nancy',
         surname: 'Lee',
@@ -232,7 +232,7 @@ let people = [
         email: 'nancy.lee@yahoo.com'
     },
     {
-        id: 28,
+        id: 30,
         role: 'student',
         name: 'Matthew',
         surname: 'Walker',
@@ -240,7 +240,7 @@ let people = [
         email: 'matthew.walker@gmail.com'
     },
     {
-        id: 29,
+        id: 31,
         role: 'student',
         name: 'Lisa',
         surname: 'Hall',
@@ -248,7 +248,7 @@ let people = [
         email: 'lisa.hall@gmail.com'
     },
     {
-        id: 30,
+        id: 32,
         role: 'student',
         name: 'Anthony',
         surname: 'Allen',
@@ -256,7 +256,7 @@ let people = [
         email: 'anthony.allen@yahoo.com'
     },
     {
-        id: 31,
+        id: 33,
         role: 'student',
         name: 'Betty',
         surname: 'Young',
@@ -264,7 +264,7 @@ let people = [
         email: 'betty.young@yahoo.com'
     },
     {
-        id: 32,
+        id: 34,
         role: 'student',
         name: 'Donald',
         surname: 'Hernandez',
@@ -272,7 +272,7 @@ let people = [
         email: 'donald.hernandez@gmail.com'
     },
     {
-        id: 33,
+        id: 35,
         role: 'student',
         name: 'Dorothy',
         surname: 'King',
@@ -280,7 +280,7 @@ let people = [
         email: 'dorothy.king@gmail.com'
     },
     {
-        id: 34,
+        id: 36,
         role: 'student',
         name: 'Mark',
         surname: 'Wright',
@@ -288,7 +288,7 @@ let people = [
         email: 'mark.wright@yahoo.com'
     },
     {
-        id: 35,
+        id: 37,
         role: 'student',
         name: 'Sandra',
         surname: 'Cook',
