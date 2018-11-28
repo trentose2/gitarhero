@@ -1,0 +1,12 @@
+[
+    {
+        "id" : 1,
+        "name" : "Gitarhero",
+        "members" : [10, 11, 12, 13]
+    },
+    {
+        "id" : 2,
+        "name" : "Comic Sans",
+        "members" : [12, 13, 14, 15]
+    }
+]

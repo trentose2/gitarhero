@@ -4,7 +4,7 @@
         "type": "Open question",
         "topic": "Sustainable mobility",
         "question": "Have you ever heard about sustainable mobility?",
-        "answer": "Yes, I had. / No, I haven't."
+        "answers": "Yes, I had. / No, I haven't."
     },
     {
         "id": 2,
@@ -12,6 +12,14 @@
         "topic": "Maths",
         "question": "What do you get multiplying 2 by 2?",
         "choices": ["4", "6"],
-        "answer": [0]
+        "answers": [0]
+    },
+    {
+        "id": 3,
+        "type": "Multiple choice",
+        "topic": "Geography",
+        "question": "What is the capital of Italy?",
+        "choices": ["Rome", "Paris"],
+        "answers": [0]
     }
 ]
