@@ -91,7 +91,7 @@ test('POST /groups should return 400 when "members" contains invalid values', (d
 });
 
 // get /groups tests
-test('GET /groups should return an array', (done) => {
+test('GET /groups should return an array of groups', (done) => {
     request(app)
         .get('/api/v1/groups')
         .set('Content-Type', 'application/json')
@@ -103,6 +103,31 @@ test('GET /groups should return an array', (done) => {
             }
             expect(Array.isArray(res.body)).toBe(true);
 
+            done(err);
+        });
+});
+
+// put /groups/:id
+test('PUT /groups/:id should return 200 when group is updated', (done) => {
+    
+    let payload = {
+        name : "group",
+        members : [1, 2, 3, 4]
+    }
+    
+    let id = 1;
+
+    request(app)
+        .put('/api/v1/groups/' + id)
+        .send(payload)
+        .set('Content-Type', 'application/json')
+        .set('Accept', 'application/json')
+        .expect(200)
+        .end((err, res) => {
+            if(err && res.error){
+                console.log(res.error);
+            }
+           
             done(err);
         });
 });
