@@ -1,5 +1,5 @@
 const request = require('supertest');
-const app = require('./app');
+const app = require('../lib/app');
 
 test('POST /tasks should return 201 and the created task', (done) => {
     let payload = {
