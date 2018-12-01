@@ -6,7 +6,7 @@ test('POST /users should return 201', (done) => {
         name : 'firstname',
         surname : 'surname',
         username : 'username',
-        email : 'email'
+        email : 'email@email.com'
     }
 
     request(app)
@@ -29,7 +29,7 @@ test('POST /users should return 400 when "name" is missing', (done) => {
         // name : 'firstname',
         surname : 'surname',
         username : 'username',
-        email : 'email'
+        email : 'email@email.com'
     }
 
     request(app)
@@ -51,7 +51,7 @@ test('POST /users should return 400 when "surname" is missing', (done) => {
         name : 'firstname',
         // surname : null,
         username : 'username',
-        email : 'email'
+        email : 'email@email.com'
     }
 
     request(app)
@@ -73,7 +73,7 @@ test('POST /users should return 400 when "username" is missing', (done) => {
         name : 'firstname',
         surname : 'surname',
         // username : null,
-        email : 'email'
+        email : 'email@email.com'
     }
 
     request(app)
@@ -117,7 +117,7 @@ test('POST /users should return 400 when "name" is not a string', (done) => {
         name : 123,
         surname : 'surname',
         username : 'username',
-        email : 'email'
+        email : 'email@email.com'
     }
 
     request(app)
@@ -139,7 +139,7 @@ test('POST /users should return 400 when "surname" is not a string', (done) => {
         name : 'firstname',
         surname : 123,
         username : 'username',
-        email : 'email'
+        email : 'email@email.com'
     }
 
     request(app)
@@ -161,7 +161,7 @@ test('POST /users should return 400 when "username" is not a string', (done) => 
         name : 'firstname',
         surname : 'surname',
         username : 123,
-        email : 'email'
+        email : 'email@email.com'
     }
 
     request(app)
@@ -184,6 +184,28 @@ test('POST /users should return 400 when "email" is not a string', (done) => {
         surname : 'surname',
         username : 'username',
         email : 123
+    }
+
+    request(app)
+        .post('/api/v1/users')
+        .send(payload)
+        .set('Content-Type', 'application/json')
+        .set('Accept', 'application/json')
+        .expect(400)
+        .end((err, res) => {
+            if (err && res.error) {
+                console.log(res.error);
+            }
+            done(err);
+        });
+});
+
+test('POST /users should return 400 when "email" is not in email format', (done) => {
+    let payload = {
+        name : 'firstname',
+        surname : 'surname',
+        username : 'username',
+        email : 'email.com'
     }
 
     request(app)
