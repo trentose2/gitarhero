@@ -356,3 +356,42 @@ test('GET /answers/:id/reviews should return 404', (done) => {
             done(err);
         });
 });
+
+test('DELETE /answers/:id should return 204', (done) => {
+    request(app)
+        .delete(`/api/v1/answers/1`)
+        .expect(204)
+        .end((err, res) => {
+            if (err && res.error) {
+                console.log(res.error);
+            }
+
+            done(err);
+        });
+});
+
+test('DELETE /answers/:id should return 400', (done) => {
+    request(app)
+        .delete(`/api/v1/answers/-1`)
+        .expect(400)
+        .end((err, res) => {
+            if (err && res.error) {
+                console.log(res.error);
+            }
+
+            done(err);
+        });
+});
+
+test('DELETE /answers/:id should return 404', (done) => {
+    request(app)
+        .delete(`/api/v1/answers/0`)
+        .expect(404)
+        .end((err, res) => {
+            if (err && res.error) {
+                console.log(res.error);
+            }
+
+            done(err);
+        });
+});
