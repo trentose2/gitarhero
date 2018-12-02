@@ -1,5 +1,5 @@
 const request = require('supertest');
-const app = require('./app');
+const app = require('../lib/app');
 
 test('app module should be defined', () => {
     expect(app).toBeDefined();

@@ -1,5 +1,5 @@
 const request = require('supertest');
-const app = require('./app');
+const app = require('../lib/app');
 
 test('POST /marks should return 201 and the created mark', (done) => {
     let payload = {
