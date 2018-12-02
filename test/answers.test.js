@@ -232,6 +232,131 @@ test('GET /answers/:id should return 404', (done) => {
         });
 });
 
+test('POST /answers/:id/reviews should return 200', (done) => {
+    let payload = {
+        text: "Nice job."
+    }
+
+    request(app)
+        .post('/api/v1/answers/1/reviews')
+        .send(payload)
+        .set('Content-Type', 'application/json')
+        .set('Accept', 'application/json')
+        .expect(200)
+        .end((err, res) => {
+            if (err && res.error) {
+                console.log(res.error);
+            }
+
+            done(err);
+        });
+});
+
+test('POST /answers/:id/reviews should return 400', (done) => {
+    let payload = {
+        text: "Nice job."
+    }
+
+    request(app)
+        .post('/api/v1/answers/-1/reviews')
+        .send(payload)
+        .set('Content-Type', 'application/json')
+        .set('Accept', 'application/json')
+        .expect(400)
+        .end((err, res) => {
+            if (err && res.error) {
+                console.log(res.error);
+            }
+
+            done(err);
+        });
+});
+
+test('POST /answers/:id/reviews should return 400', (done) => {
+    let payload = {
+        text: ""
+    }
+
+    request(app)
+        .post('/api/v1/answers/1/reviews')
+        .send(payload)
+        .set('Content-Type', 'application/json')
+        .set('Accept', 'application/json')
+        .expect(400)
+        .end((err, res) => {
+            if (err && res.error) {
+                console.log(res.error);
+            }
+
+            done(err);
+        });
+});
+
+test('POST /answers/:id/reviews should return 404', (done) => {
+    let payload = {
+        text: "Nice job"
+    }
+
+    request(app)
+        .post('/api/v1/answers/0/reviews')
+        .send(payload)
+        .set('Content-Type', 'application/json')
+        .set('Accept', 'application/json')
+        .expect(404)
+        .end((err, res) => {
+            if (err && res.error) {
+                console.log(res.error);
+            }
+
+            done(err);
+        });
+});
+
+test('GET /answers/:id/reviews should return a list', (done) => {
+    request(app)
+        .get('/api/v1/answers/1')
+        .set('Content-Type', 'application/json')
+        .set('Accept', 'application/json')
+        .expect(200)
+        .end((err, res) => {
+            if (err && res.error) {
+                console.log(res.error);
+            }
+
+            done(err);
+        });
+});
+
+test('GET /answers/:id/reviews should return 400', (done) => {
+    request(app)
+        .get('/api/v1/answers/-1')
+        .set('Content-Type', 'application/json')
+        .set('Accept', 'application/json')
+        .expect(400)
+        .end((err, res) => {
+            if (err && res.error) {
+                console.log(res.error);
+            }
+
+            done(err);
+        });
+});
+
+test('GET /answers/:id/reviews should return 404', (done) => {
+    request(app)
+        .get('/api/v1/answers/0')
+        .set('Content-Type', 'application/json')
+        .set('Accept', 'application/json')
+        .expect(404)
+        .end((err, res) => {
+            if (err && res.error) {
+                console.log(res.error);
+            }
+
+            done(err);
+        });
+});
+
 test('DELETE /answers/:id should return 204', (done) => {
     request(app)
         .delete(`/api/v1/answers/1`)
