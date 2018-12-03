@@ -88,6 +88,27 @@ test('POST /groups should return 400 when "members" contains invalid values', (d
         });
 });
 
+test('POST /groups should return 400 when "members" is not an array', (done) => {
+    let payload = {
+        name: "group name",
+        members: 1
+    }
+
+    request(app)
+        .post('/api/v1/groups')
+        .send(payload)
+        .set('Content-Type', 'application/json')
+        .set('Accept', 'application/json')
+        .expect(400)
+        .end((err, res) => {
+            if (err && res.error) {
+                console.log(res.error);
+            }
+
+            done(err);
+        });
+});
+
 // GET /groups tests
 test('GET /groups should return an array of groups', (done) => {
     request(app)
@@ -162,7 +183,7 @@ test('PUT /groups/:id should return 400 when "members" contains invalid values',
     let id = 1;
 
     request(app)
-        .post('/api/v1/groups/' + id)
+        .put('/api/v1/groups/' + id)
         .send(payload)
         .set('Content-Type', 'application/json')
         .set('Accept', 'application/json')
@@ -185,7 +206,7 @@ test('PUT /groups/:id should return 400 when "name" is missing', (done) => {
     let id = 1;
 
     request(app)
-        .put('/api/v1/groups' + id)
+        .put('/api/v1/groups/' + id)
         .send(payload)
         .set('Content-Type', 'application/json')
         .set('Accept', 'application/json')
@@ -208,7 +229,7 @@ test('PUT /groups/:id should return 400 when "members" is missing', (done) => {
     let id = 1;
 
     request(app)
-        .put('/api/v1/groups' + id)
+        .put('/api/v1/groups/' + id)
         .send(payload)
         .set('Content-Type', 'application/json')
         .set('Accept', 'application/json')
@@ -266,6 +287,29 @@ test('PUT /groups/:id should return 400 when id is less than 0', (done) => {
                 console.log(res.error);
             }
            
+            done(err);
+        });
+});
+
+test('PUT /groups/:id should return 400 when "members" is not an array', (done) => {
+    let payload = {
+        name: "group name",
+        members: 1
+    }
+
+    let id = 1;
+
+    request(app)
+        .put('/api/v1/groups/' + id)
+        .send(payload)
+        .set('Content-Type', 'application/json')
+        .set('Accept', 'application/json')
+        .expect(400)
+        .end((err, res) => {
+            if (err && res.error) {
+                console.log(res.error);
+            }
+
             done(err);
         });
 });
