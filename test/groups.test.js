@@ -126,6 +126,79 @@ test('GET /groups should return an array of groups', (done) => {
         });
 });
 
+test('GET /groups?userId=1 should return an array of groups', (done) => {
+    let id = 1;
+    
+    request(app)
+        .get('/api/v1/groups')
+        .query({userId : id})
+        .set('Content-Type', 'application/json')
+        .set('Accept', 'application/json')
+        .expect(200)
+        .end((err, res) => {
+            if (err && res.error) {
+                console.log(res.error);
+            }
+            expect(Array.isArray(res.body)).toBe(true);
+
+            done(err);
+        });
+});
+
+test('GET /groups?userId= should return 400 when userId is not a number', (done) => {
+    let id = "a";
+    
+    request(app)
+        .get('/api/v1/groups') 
+        .query({userId : id})
+        .set('Content-Type', 'application/json')
+        .set('Accept', 'application/json')
+        .expect(400)
+        .end((err, res) => {
+            if (err && res.error) {
+                console.log(res.error);
+            }
+
+            done(err);
+        });
+});
+
+test('GET /groups?userId= should return 400 when userId is 0', (done) => {
+    let id = 0;
+    
+    request(app)
+        .get('/api/v1/groups')
+        .query({userId : id})
+        .set('Content-Type', 'application/json')
+        .set('Accept', 'application/json')
+        .expect(400)
+        .end((err, res) => {
+            if (err && res.error) {
+                console.log(res.error);
+            }
+
+            done(err);
+        });
+});
+
+test('GET /groups?userId= should return 400 when userId is negative', (done) => {
+    let id = -2;
+    
+    request(app)
+        .get('/api/v1/groups')
+        .query({userId : id})
+        .set('Content-Type', 'application/json')
+        .set('Accept', 'application/json')
+        .expect(400)
+        .end((err, res) => {
+            if (err && res.error) {
+                console.log(res.error);
+            }
+
+            done(err);
+        });
+});
+
 // PUT /groups/:id tests
 test('PUT /groups/:id should return 200 when group is updated', (done) => {
     
