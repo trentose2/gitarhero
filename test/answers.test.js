@@ -1,397 +1,199 @@
-const request = require('supertest');
-const app = require('../lib/app');
+const common = require("./common");
 
-test('POST /answers should return 201', (done) => {
-    let payload = {
+test('POST /answers should return an answer', async () => {
+    let validPayload = {
         userId: 2,
         assignmentId: 4,
         taskId: 8,
         answer: "Yes"
     };
 
-    request(app)
-        .post('/api/v1/answers')
-        .send(payload)
-        .set('Content-Type', 'application/json')
-        .set('Accept', 'application/json')
-        .expect(201)
-        .end((err, res) => {
-            if (err && res.error) {
-                console.log(res.error);
-            }
+    const res = await common.postAnswer(validPayload);
 
-            done(err);
-        });
+    expect(res.status).toBe(201);
 });
 
-test('POST /answers should return 400 when "userId" is missing', (done) => {
-    let payload = {
-        // userId: 2,
+test('POST /answers should return 400 ("userId" is missing)', async () => {
+    let invalidPayload = {
         assignmentId: 4,
         taskId: 8,
         answer: "Yes"
     };
 
-    request(app)
-        .post('/api/v1/answers')
-        .send(payload)
-        .set('Content-Type', 'application/json')
-        .set('Accept', 'application/json')
-        .expect(400)
-        .end((err, res) => {
-            if (err && res.error) {
-                console.log(res.error);
-            }
+    const res = await common.postAnswer(invalidPayload);
 
-            done(err);
-        });
+    expect(res.status).toBe(400);
 });
 
-test('POST /answers should return 400 when "userId" is not greater than or equal to 0', (done) => {
-    let payload = {
+test('POST /answers should return 400 ("userId" < 0)', async () => {
+    let invalidPayload = {
         userId: -1,
         assignmentId: 4,
         taskId: 8,
         answer: "Yes"
     };
 
-    request(app)
-        .post('/api/v1/answers')
-        .send(payload)
-        .set('Content-Type', 'application/json')
-        .set('Accept', 'application/json')
-        .expect(400)
-        .end((err, res) => {
-            if (err && res.error) {
-                console.log(res.error);
-            }
+    const res = await common.postAnswer(invalidPayload)
 
-            done(err);
-        });
+    expect(res.status).toBe(400);
 });
 
-test('POST /answers should return 400 when "assignmentId" is missing', (done) => {
-    let payload = {
+test('POST /answers should return 400 ("assignmentId" is missing)', async () => {
+    let invalidPayload = {
         userId: 2,
-        // assignmentId: 4,
         taskId: 8,
         answer: "Yes"
     };
 
-    request(app)
-        .post('/api/v1/answers')
-        .send(payload)
-        .set('Content-Type', 'application/json')
-        .set('Accept', 'application/json')
-        .expect(400)
-        .end((err, res) => {
-            if (err && res.error) {
-                console.log(res.error);
-            }
+    const res = await common.postAnswer(invalidPayload)
 
-            done(err);
-        });
+    expect(res.status).toBe(400);
 });
 
 
-test('POST /answers should return 400 when "assignmentId" is not greater than or equal to 0', (done) => {
-    let payload = {
+test('POST /answers should return 400 ("assignmentId" < 0)', async () => {
+    let invalidPayload = {
         userId: 2,
         assignmentId: -1,
         taskId: 8,
         answer: "Yes"
     };
 
-    request(app)
-        .post('/api/v1/answers')
-        .send(payload)
-        .set('Content-Type', 'application/json')
-        .set('Accept', 'application/json')
-        .expect(400)
-        .end((err, res) => {
-            if (err && res.error) {
-                console.log(res.error);
-            }
+    const res = await common.postAnswer(invalidPayload)
 
-            done(err);
-        });
+    expect(res.status).toBe(400);
 });
 
-test('POST /answers should return 400 when "taskId" is missing', (done) => {
-    let payload = {
+test('POST /answers should return 400 ("taskId" is missing)', async () => {
+    let invalidPayload = {
         userId: 2,
         assignmentId: 4,
-        // taskId: 8,
         answer: "Yes"
     };
 
-    request(app)
-        .post('/api/v1/answers')
-        .send(payload)
-        .set('Content-Type', 'application/json')
-        .set('Accept', 'application/json')
-        .expect(400)
-        .end((err, res) => {
-            if (err && res.error) {
-                console.log(res.error);
-            }
+    const res = await common.postAnswer(invalidPayload)
 
-            done(err);
-        });
+    expect(res.status).toBe(400);
 });
 
 
-test('POST /answers should return 400 when "taskId" is not greater than or equal to 0', (done) => {
-    let payload = {
+test('POST /answers should return 400 ("taskId" < 0)', async () => {
+    let invalidPayload = {
         userId: 2,
         assignmentId: 4,
         taskId: -1,
         answer: "Yes"
     };
 
-    request(app)
-        .post('/api/v1/answers')
-        .send(payload)
-        .set('Content-Type', 'application/json')
-        .set('Accept', 'application/json')
-        .expect(400)
-        .end((err, res) => {
-            if (err && res.error) {
-                console.log(res.error);
-            }
+    const res = await common.postAnswer(invalidPayload)
 
-            done(err);
-        });
+    expect(res.status).toBe(400);
 });
 
-test('POST /answers should return 400 when "answer" is missing', (done) => {
-    let payload = {
+test('POST /answers should return 400 ("answer" is missing)', async () => {
+    let invalidPayload = {
         userId: 2,
         assignmentId: 4,
         taskId: 8
-        // answer: "Yes"
     };
 
-    request(app)
-        .post('/api/v1/answers')
-        .send(payload)
-        .set('Content-Type', 'application/json')
-        .set('Accept', 'application/json')
-        .expect(400)
-        .end((err, res) => {
-            if (err && res.error) {
-                console.log(res.error);
-            }
+    const res = await common.postAnswer(invalidPayload)
 
-            done(err);
-        });
+    expect(res.status).toBe(400);
 });
 
-test('GET /answers/:id should return an object', (done) => {
-    request(app)
-        .get('/api/v1/answers/1')
-        .set('Content-Type', 'application/json')
-        .set('Accept', 'application/json')
-        .expect(200)
-        .end((err, res) => {
-            if (err && res.error) {
-                console.log(res.error);
-            }
+test('GET /answers/:id should return an object', async () => {
+    const res = await common.getAnswer(1);
 
-            done(err);
-        });
+    expect(res.status).toBe(200)
 });
 
-test('GET /answers/:id should return 400', (done) => {
-    request(app)
-        .get('/api/v1/answers/-1')
-        .set('Content-Type', 'application/json')
-        .set('Accept', 'application/json')
-        .expect(400)
-        .end((err, res) => {
-            if (err && res.error) {
-                console.log(res.error);
-            }
+test('GET /answers/:id should return 400 ("id" < 0)', async () => {
+    const res = await common.getAnswer(-1);
 
-            done(err);
-        });
+    expect(res.status).toBe(400)
 });
 
-test('GET /answers/:id should return 404', (done) => {
-    request(app)
-        .get('/api/v1/answers/0')
-        .set('Content-Type', 'application/json')
-        .set('Accept', 'application/json')
-        .expect(404)
-        .end((err, res) => {
-            if (err && res.error) {
-                console.log(res.error);
-            }
+test('GET /answers/:id should return 404 (answer not found)', async () => {
+    const res = await common.getAnswer(999);
 
-            done(err);
-        });
+    expect(res.status).toBe(404)
 });
 
-test('POST /answers/:id/reviews should return 200', (done) => {
-    let payload = {
+test('POST /answers/:id/reviews should return the review', async () => {
+    let validPayload = {
         text: "Nice job."
     }
 
-    request(app)
-        .post('/api/v1/answers/1/reviews')
-        .send(payload)
-        .set('Content-Type', 'application/json')
-        .set('Accept', 'application/json')
-        .expect(200)
-        .end((err, res) => {
-            if (err && res.error) {
-                console.log(res.error);
-            }
+    const res = await common.postAnswersReview(1, validPayload)
 
-            done(err);
-        });
+    expect(res.status).toBe(200);
+    expect(res.body).toEqual(validPayload);
 });
 
-test('POST /answers/:id/reviews should return 400', (done) => {
-    let payload = {
+test('POST /answers/:id/reviews should return 400 ("id" < 0)', async () => {
+    let validPayload = {
         text: "Nice job."
     }
 
-    request(app)
-        .post('/api/v1/answers/-1/reviews')
-        .send(payload)
-        .set('Content-Type', 'application/json')
-        .set('Accept', 'application/json')
-        .expect(400)
-        .end((err, res) => {
-            if (err && res.error) {
-                console.log(res.error);
-            }
+    const res = await common.postAnswersReview(-1, validPayload)
 
-            done(err);
-        });
+    expect(res.status).toBe(400);
 });
 
-test('POST /answers/:id/reviews should return 400', (done) => {
-    let payload = {
+test('POST /answers/:id/reviews should return 400 ("text" = "")', async () => {
+    let invalidPayload = {
         text: ""
     }
 
-    request(app)
-        .post('/api/v1/answers/1/reviews')
-        .send(payload)
-        .set('Content-Type', 'application/json')
-        .set('Accept', 'application/json')
-        .expect(400)
-        .end((err, res) => {
-            if (err && res.error) {
-                console.log(res.error);
-            }
+    const res = await common.postAnswersReview(1, invalidPayload)
 
-            done(err);
-        });
+    expect(res.status).toBe(400);
 });
 
-test('POST /answers/:id/reviews should return 404', (done) => {
-    let payload = {
+test('POST /answers/:id/reviews should return 404 (answer not found)', async () => {
+    let validPayload = {
         text: "Nice job"
     }
 
-    request(app)
-        .post('/api/v1/answers/0/reviews')
-        .send(payload)
-        .set('Content-Type', 'application/json')
-        .set('Accept', 'application/json')
-        .expect(404)
-        .end((err, res) => {
-            if (err && res.error) {
-                console.log(res.error);
-            }
+    const res = await common.postAnswersReview(999, validPayload)
 
-            done(err);
-        });
+    expect(res.status).toBe(404);
 });
 
-test('GET /answers/:id/reviews should return a list', (done) => {
-    request(app)
-        .get('/api/v1/answers/1')
-        .set('Content-Type', 'application/json')
-        .set('Accept', 'application/json')
-        .expect(200)
-        .end((err, res) => {
-            if (err && res.error) {
-                console.log(res.error);
-            }
+test('GET /answers/:id/reviews should return an array', async () => {
+    const res = await common.getAnswersReview(1);
 
-            done(err);
-        });
+    expect(res.status).toBe(200);
+    expect(Array.isArray(res.body)).toBe(true)
 });
 
-test('GET /answers/:id/reviews should return 400', (done) => {
-    request(app)
-        .get('/api/v1/answers/-1')
-        .set('Content-Type', 'application/json')
-        .set('Accept', 'application/json')
-        .expect(400)
-        .end((err, res) => {
-            if (err && res.error) {
-                console.log(res.error);
-            }
+test('GET /answers/:id/reviews should return 400 ("id" < 0)', async () => {
+    const res = await common.getAnswersReview(-1);
 
-            done(err);
-        });
+    expect(res.status).toBe(400);
 });
 
-test('GET /answers/:id/reviews should return 404', (done) => {
-    request(app)
-        .get('/api/v1/answers/0')
-        .set('Content-Type', 'application/json')
-        .set('Accept', 'application/json')
-        .expect(404)
-        .end((err, res) => {
-            if (err && res.error) {
-                console.log(res.error);
-            }
+test('GET /answers/:id/reviews should return 404 (answer not found)', async () => {
+    const res = await common.getAnswersReview(999);
 
-            done(err);
-        });
+    expect(res.status).toBe(404);
 });
 
-test('DELETE /answers/:id should return 204', (done) => {
-    request(app)
-        .delete(`/api/v1/answers/1`)
-        .expect(204)
-        .end((err, res) => {
-            if (err && res.error) {
-                console.log(res.error);
-            }
+test('DELETE /answers/:id should return 204', async () => {
+    const res = await common.deleteAnswer(1);
 
-            done(err);
-        });
+    expect(res.status).toBe(204);
 });
 
-test('DELETE /answers/:id should return 400', (done) => {
-    request(app)
-        .delete(`/api/v1/answers/-1`)
-        .expect(400)
-        .end((err, res) => {
-            if (err && res.error) {
-                console.log(res.error);
-            }
+test('DELETE /answers/:id should return 400 ("id" < 0)', async () => {
+    const res = await common.deleteAnswer(-1);
 
-            done(err);
-        });
+    expect(res.status).toBe(400);
 });
 
-test('DELETE /answers/:id should return 404', (done) => {
-    request(app)
-        .delete(`/api/v1/answers/0`)
-        .expect(404)
-        .end((err, res) => {
-            if (err && res.error) {
-                console.log(res.error);
-            }
+test('DELETE /answers/:id should return 404 (answer not found)', async () => {
+    const res = await common.deleteAnswer(999);
 
-            done(err);
-        });
+    expect(res.status).toBe(404);
 });

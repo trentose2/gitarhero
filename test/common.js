@@ -1,6 +1,39 @@
 const request = require('supertest');
 const app = require('../lib/app');
 
+function deleteAnswer(id) {
+    return request(app)
+        .delete(`/api/v1/answers/${id}`);
+}
+
+function getAnswer(id) {
+    return request(app)
+        .get(`/api/v1/answers/${id}`)
+        .set('Accept', 'application/json');
+}
+
+function getAnswersReview(id) {
+    return request(app)
+        .get(`/api/v1/answers/${id}/reviews`)
+        .set('Accept', 'application/json');
+}
+
+function postAnswer(payload) {
+    return request(app)
+        .post('/api/v1/answers')
+        .send(payload)
+        .set('Content-Type', 'application/json')
+        .set('Accept', 'application/json');
+}
+
+function postAnswersReview(id, payload) {
+    return request(app)
+        .post(`/api/v1/answers/${id}/reviews`)
+        .send(payload)
+        .set('Content-Type', 'application/json')
+        .set('Accept', 'application/json');
+}
+
 function getAssignments(query) {
     let req = request(app)
         .get('/api/v1/assignments')
@@ -82,6 +115,12 @@ function deleteTask(id) {
 }
 
 module.exports = {
+    deleteAnswer,
+    getAnswer,
+    getAnswersReview,
+    postAnswer,
+    postAnswersReview,
+
     /* Assignments */
     getAssignments,
     getAssignment,
