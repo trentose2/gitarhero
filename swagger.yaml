@@ -281,24 +281,28 @@ paths:
             type: object
             required:
               - type
+              - topic
               - question
-              - answer
+              - answers
             properties:
               type:
                 type: string
-                enum: [open, choice]
-                description: 'Type of the question'
+                enum: [Open question, Multiple choice]
+                description: 'Type of the task'
+              topic:
+                type: string
+                description: 'Topic of the task'
               question:
                 type: string
                 description: 'Question of the task'
               choices:
                 type: array
-                description: 'Possibile choices'
+                description: 'The array of possible answers to the task.'
                 items:
                   type: string
-              answer:
+              answers:
                 type: string
-                description: 'The correct answer. May be an index pointing to a choice'
+                description: 'The correct answer. If the task has type "Open question", then it is a string. If the task has type "Multiple choice", then it is an array of integers representing indexes to the array in the field "choices"'
       responses:
         201:
           description: 'The created task'
@@ -346,19 +350,22 @@ paths:
             properties:
               type:
                 type: string
-                enum: [open, choice]
-                description: 'Type of the question'
+                enum: [Open question, Multiple choice]
+                description: 'Type of the task'
+              topic:
+                type: string
+                description: 'Topic of the task'
               question:
                 type: string
                 description: 'Question of the task'
               choices:
                 type: array
-                description: 'Possibile choices'
+                description: 'The array of possible answers to the task.'
                 items:
                   type: string
-              answer:
+              answers:
                 type: string
-                description: 'The correct answer. May be an index pointing to a choice'
+                description: 'The correct answer. If the task has type "Open question", then it is a string. If the task has type "Multiple choice", then it is an array of integers representing indexes to the array in the field "choices"'
       responses:
         200:
           description: 'The updated task'
@@ -592,24 +599,28 @@ definitions:
     type: object
     required:
       - type
+      - topice
       - question
       - answer
     properties:
       type:
         type: string
-        enum: [open, choice]
-        description: 'Type of the question'
+        enum: [Open question, Multiple choice]
+        description: 'Type of the task'
+      topic:
+        type: string
+        description: 'Topic of the task'
       question:
         type: string
         description: 'Question of the task'
       choices:
         type: array
-        description: 'Possibile choices'
+        description: 'The array of possible answers to the task.'
         items:
           type: string
-      answer:
+      answers:
         type: string
-        description: 'The correct answer. May be an index pointing to a choice'
+        description: 'The correct answer. If the task has type "Open question", then it is a string. If the task has type "Multiple choice", then it is an array of integers representing indexes to the array in the field "choices"'
   
   Answer:
     type: object
