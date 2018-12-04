@@ -146,6 +146,20 @@ function deleteTask(id) {
         .delete(`/api/v1/tasks/${id}`);
 }
 
+function postMark(mark) {
+    return request(app)
+        .post('/api/v1/marks')
+        .send(mark)
+        .set('Content-Type', 'application/json')
+        .set('Accept', 'application/json');
+}
+
+function getMark(userId, assignmentId) {
+    return request(app)
+        .get(`/api/v1/marks?userId=${userId}&assignmentId=${assignmentId}`)
+        .set('Accept', 'application/json');
+}
+
 module.exports = {
     deleteAnswer,
     getAnswer,
@@ -170,5 +184,9 @@ module.exports = {
     /* Tasks */
     getTask,    
     postTask,
-    deleteTask
+    deleteTask,
+    
+    /* Marks */
+    postMark,
+    getMark
 };
