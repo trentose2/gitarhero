@@ -1,0 +1,17 @@
+[
+    {
+        "id": 1,
+        "type": "Open question",
+        "topic": "Sustainable mobility",
+        "question": "Have you ever heard about sustainable mobility?",
+        "answer": "Yes, I had. / No, I haven't."
+    },
+    {
+        "id": 2,
+        "type": "Multiple choice",
+        "topic": "Maths",
+        "question": "What do you get multiplying 2 by 2?",
+        "choices": ["4", "6"],
+        "answer": [0]
+    }
+]
