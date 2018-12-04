@@ -93,11 +93,37 @@ function postUser(user) {
         .set('Accept', 'application/json');
 }
 
+function getGroups(query) {
+    let req = request(app)
+        .get('/api/v1/groups')
+        .set('Accept', 'application/json');
+
+    if (query) {
+        req = req.query(query);
+    }
+
+    return req;
+}
+
 function postGroup(group) {
     return request(app)
         .post('/api/v1/groups')
         .send(group)
         .set('Content-Type', 'application/json')
+        .set('Accept', 'application/json');
+}
+
+function putGroup(id, group) {
+    return request(app)
+        .put('/api/v1/groups/' + id)
+        .send(group)
+        .set('Content-Type', 'application/json')
+        .set('Accept', 'application/json')
+}
+
+function getGroupsMembers(id) {
+    return request(app)
+        .get(`/api/v1/groups/${id}/members`)
         .set('Accept', 'application/json');
 }
 
@@ -136,7 +162,10 @@ module.exports = {
     putAssignment,
     getUser,
     postUser,
+    getGroups,
     postGroup,
+    putGroup,
+    getGroupsMembers,
 
     /* Tasks */
     getTask,    
