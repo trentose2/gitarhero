@@ -79,6 +79,12 @@ function putAssignment(id, payload) {
         .set('Accept', 'application/json');
 }
 
+function getUser(id) {
+    return request(app)
+        .get(`/api/v1/users/${id}`)
+        .set('Accept', 'application/json');
+}
+
 function postUser(user) {
     return request(app)
         .post('/api/v1/users')
@@ -128,6 +134,7 @@ module.exports = {
     deleteAssignment,
     postAssignment,
     putAssignment,
+    getUser,
     postUser,
     postGroup,
 
