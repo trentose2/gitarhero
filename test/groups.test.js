@@ -1,29 +1,18 @@
-const request = require('supertest');
-const app = require('../lib/app');
+const common = require ('./common');
 
 // POST /groups tests
-test('POST /groups should return 201 and create a group', (done) => {
+test('POST /groups should return 201 and create a group', async () => {
     let payload = {
         name: 'group name',
         members: [ 1, 2, 3, 4 ]
     }
 
-    request(app)
-        .post('/api/v1/groups')
-        .send(payload)
-        .set('Content-Type', 'application/json')
-        .set('Accept', 'application/json')
-        .expect(201)
-        .end((err, res) => {
-            if (err && res.error) {
-                console.log(res.error);
-            }
+    const res = await common.postGroup(payload);
+    expect(res.status).toBe(201);
 
-            done(err);
-        });
 });
 
-test('POST /groups should return 400 when "name" is not string', (done) => {
+test('POST /groups should return 400 when "name" is not string', async () => {
     let payload = {
         name: 123,
         members: [
@@ -31,176 +20,91 @@ test('POST /groups should return 400 when "name" is not string', (done) => {
         ]
     }
 
-    request(app)
-        .post('/api/v1/groups')
-        .send(payload)
-        .set('Content-Type', 'application/json')
-        .set('Accept', 'application/json')
-        .expect(400)
-        .end((err, res) => {
-            if (err && res.error) {
-                console.log(res.error);
-            }
+    const res = await common.postGroup(payload);
 
-            done(err);
-        });
+    expect(res.status).toBe(400);
+    expect(res.body.error).toBe('The field "name" must be a non-empty string');
 });
 
-test('POST /groups should return 400 when "name" is missing', (done) => {
+test('POST /groups should return 400 when "name" is missing', async () => {
     let payload = {
         // name: "group name",
         members: [ 1, 2, 3, 4 ]
     }
 
-    request(app)
-        .post('/api/v1/groups')
-        .send(payload)
-        .set('Content-Type', 'application/json')
-        .set('Accept', 'application/json')
-        .expect(400)
-        .end((err, res) => {
-            if (err && res.error) {
-                console.log(res.error);
-            }
+    const res = await common.postGroup(payload);
 
-            done(err);
-        });
+    expect(res.status).toBe(400);
+    expect(res.body.error).toBe('The field "name" must be a non-empty string');
 });
 
-test('POST /groups should return 400 when "members" contains invalid values', (done) => {
+test('POST /groups should return 400 when "members" contains invalid values', async () => {
     let payload = {
         name: "group name",
         members: [ false, "a", null, -1 ]
     }
 
-    request(app)
-        .post('/api/v1/groups')
-        .send(payload)
-        .set('Content-Type', 'application/json')
-        .set('Accept', 'application/json')
-        .expect(400)
-        .end((err, res) => {
-            if (err && res.error) {
-                console.log(res.error);
-            }
+    const res = await common.postGroup(payload);
 
-            done(err);
-        });
+    expect(res.status).toBe(400);
+    expect(res.body.error).toBe('The field "members" must contain only integers greater or equal to 0');
 });
 
-test('POST /groups should return 400 when "members" is not an array', (done) => {
+test('POST /groups should return 400 when "members" is not an array', async () => {
     let payload = {
         name: "group name",
         members: 1
     }
 
-    request(app)
-        .post('/api/v1/groups')
-        .send(payload)
-        .set('Content-Type', 'application/json')
-        .set('Accept', 'application/json')
-        .expect(400)
-        .end((err, res) => {
-            if (err && res.error) {
-                console.log(res.error);
-            }
+    const res = await common.postGroup(payload);
 
-            done(err);
-        });
+    expect(res.status).toBe(400);
+    expect(res.body.error).toBe('The field members must be an array');
 });
 
 // GET /groups tests
-test('GET /groups should return an array of groups', (done) => {
-    request(app)
-        .get('/api/v1/groups')
-        .set('Content-Type', 'application/json')
-        .set('Accept', 'application/json')
-        .expect(200)
-        .end((err, res) => {
-            if (err && res.error) {
-                console.log(res.error);
-            }
-            expect(Array.isArray(res.body)).toBe(true);
+test('GET /groups should return an array of groups', async () => {
+ 
+    const res = await common.getGroups();
 
-            done(err);
-        });
+    expect(res.status).toBe(200);
+    expect(Array.isArray(res.body)).toBe(true);
 });
 
-test('GET /groups?userId=1 should return an array of groups', (done) => {
-    let id = 1;
-    
-    request(app)
-        .get('/api/v1/groups')
-        .query({userId : id})
-        .set('Content-Type', 'application/json')
-        .set('Accept', 'application/json')
-        .expect(200)
-        .end((err, res) => {
-            if (err && res.error) {
-                console.log(res.error);
-            }
-            expect(Array.isArray(res.body)).toBe(true);
+test('GET /groups?userId=1 should return an array of groups', async () => {
+ 
+    const res = await common.getGroups({userId : 1});
 
-            done(err);
-        });
+    expect(res.status).toBe(200);
+    expect(Array.isArray(res.body)).toBe(true);
 });
 
-test('GET /groups?userId= should return 400 when userId is not a number', (done) => {
-    let id = "a";
-    
-    request(app)
-        .get('/api/v1/groups') 
-        .query({userId : id})
-        .set('Content-Type', 'application/json')
-        .set('Accept', 'application/json')
-        .expect(400)
-        .end((err, res) => {
-            if (err && res.error) {
-                console.log(res.error);
-            }
+test('GET /groups?userId= should return 400 when userId is not a number', async () => {
 
-            done(err);
-        });
+    const res = await common.getGroups({userId : "a"});
+
+    expect(res.status).toBe(400);
+    expect(res.body.error).toBe('The userId query parameter must be an integer greater than 0');
 });
 
-test('GET /groups?userId= should return 400 when userId is 0', (done) => {
-    let id = 0;
+test('GET /groups?userId= should return 400 when userId is 0', async () => {
     
-    request(app)
-        .get('/api/v1/groups')
-        .query({userId : id})
-        .set('Content-Type', 'application/json')
-        .set('Accept', 'application/json')
-        .expect(400)
-        .end((err, res) => {
-            if (err && res.error) {
-                console.log(res.error);
-            }
+    const res = await common.getGroups({userId : 0});
 
-            done(err);
-        });
+    expect(res.status).toBe(400);
+    expect(res.body.error).toBe('The userId query parameter must be an integer greater than 0');
 });
 
-test('GET /groups?userId= should return 400 when userId is negative', (done) => {
-    let id = -2;
+test('GET /groups?userId= should return 400 when userId is negative', async () => {
     
-    request(app)
-        .get('/api/v1/groups')
-        .query({userId : id})
-        .set('Content-Type', 'application/json')
-        .set('Accept', 'application/json')
-        .expect(400)
-        .end((err, res) => {
-            if (err && res.error) {
-                console.log(res.error);
-            }
+    const res = await common.getGroups({userId : -1});
 
-            done(err);
-        });
+    expect(res.status).toBe(400);
+    expect(res.body.error).toBe('The userId query parameter must be an integer greater than 0');
 });
 
 // PUT /groups/:id tests
-test('PUT /groups/:id should return 200 when group is updated', (done) => {
+test('PUT /groups/:id should return 200 when group is updated', async () => {
     
     let payload = {
         name : "group name",
@@ -209,45 +113,23 @@ test('PUT /groups/:id should return 200 when group is updated', (done) => {
     
     let id = 1;
 
-    request(app)
-        .put('/api/v1/groups/' + id)
-        .send(payload)
-        .set('Content-Type', 'application/json')
-        .set('Accept', 'application/json')
-        .expect(200)
-        .end((err, res) => {
-            if(err && res.error){
-                console.log(res.error);
-            }
-           
-            done(err);
-        });
+    const res = await common.putGroup(id, payload);
+    expect(res.status).toBe(200);
 });
 
-test('PUT /groups/:id should return 400 when "name" is not a string', (done) => {
+test('PUT /groups/:id should return 400 when "name" is not a string', async () => {
     let payload = {
         name: 123,
         members: [ 1, 2, 3, 4 ]
     }
 
     let id = 1;
-
-    request(app)
-        .put('/api/v1/groups/' + id)
-        .send(payload)
-        .set('Content-Type', 'application/json')
-        .set('Accept', 'application/json')
-        .expect(400)
-        .end((err, res) => {
-            if (err && res.error) {
-                console.log(res.error);
-            }
-
-            done(err);
-        });
+    const res = await common.putGroup(id, payload);
+    expect(res.status).toBe(400);
+    expect(res.body.error).toBe('The field "name" must be a non-empty string');
 });
 
-test('PUT /groups/:id should return 400 when "members" contains invalid values', (done) => {
+test('PUT /groups/:id should return 400 when "members" contains invalid values', async () => {
     let payload = {
         name: "group name",
         members: [ false, "a", null, -1 ]
@@ -255,22 +137,12 @@ test('PUT /groups/:id should return 400 when "members" contains invalid values',
 
     let id = 1;
 
-    request(app)
-        .put('/api/v1/groups/' + id)
-        .send(payload)
-        .set('Content-Type', 'application/json')
-        .set('Accept', 'application/json')
-        .expect(400)
-        .end((err, res) => {
-            if (err && res.error) {
-                console.log(res.error);
-            }
-
-            done(err);
-        });
+    const res = await common.putGroup(id, payload);
+    expect(res.status).toBe(400);
+    expect(res.body.error).toBe('The field "members" must contain only integers greater than 0');
 });
 
-test('PUT /groups/:id should return 400 when "name" is missing', (done) => {
+test('PUT /groups/:id should return 400 when "name" is missing', async () => {
     let payload = {
         // name: "group name",
         members: [ 1, 2, 3, 4 ]
@@ -278,22 +150,12 @@ test('PUT /groups/:id should return 400 when "name" is missing', (done) => {
 
     let id = 1;
 
-    request(app)
-        .put('/api/v1/groups/' + id)
-        .send(payload)
-        .set('Content-Type', 'application/json')
-        .set('Accept', 'application/json')
-        .expect(400)
-        .end((err, res) => {
-            if (err && res.error) {
-                console.log(res.error);
-            }
-
-            done(err);
-        });
+    const res = await common.putGroup(id, payload);
+    expect(res.status).toBe(400);
+    expect(res.body.error).toBe('The field "name" must be a non-empty string');
 });
 
-test('PUT /groups/:id should return 400 when "members" is missing', (done) => {
+test('PUT /groups/:id should return 400 when "members" is missing', async () => {
     let payload = {
         name: "group name",
         // members: [ 1, 2, 3, 4 ]
@@ -301,22 +163,12 @@ test('PUT /groups/:id should return 400 when "members" is missing', (done) => {
 
     let id = 1;
 
-    request(app)
-        .put('/api/v1/groups/' + id)
-        .send(payload)
-        .set('Content-Type', 'application/json')
-        .set('Accept', 'application/json')
-        .expect(400)
-        .end((err, res) => {
-            if (err && res.error) {
-                console.log(res.error);
-            }
-
-            done(err);
-        });
+    const res = await common.putGroup(id, payload);
+    expect(res.status).toBe(400);
+    expect(res.body.error).toBe('The field members must be a non-empty array');
 });
 
-test('PUT /groups/:id should return 400 when id is 0', (done) => {
+test('PUT /groups/:id should return 400 when id is 0', async () => {
     
     let payload = {
         name : "group name",
@@ -325,22 +177,12 @@ test('PUT /groups/:id should return 400 when id is 0', (done) => {
     
     let id = 0;
 
-    request(app)
-        .put('/api/v1/groups/' + id)
-        .send(payload)
-        .set('Content-Type', 'application/json')
-        .set('Accept', 'application/json')
-        .expect(400)
-        .end((err, res) => {
-            if(err && res.error){
-                console.log(res.error);
-            }
-           
-            done(err);
-        });
+    const res = await common.putGroup(id, payload);
+    expect(res.status).toBe(400);
+    expect(res.body.error).toBe('The id must be positive and greater than 0');
 });
 
-test('PUT /groups/:id should return 400 when id is less than 0', (done) => {
+test('PUT /groups/:id should return 400 when id is less than 0', async () => {
     
     let payload = {
         name : "group name",
@@ -349,22 +191,12 @@ test('PUT /groups/:id should return 400 when id is less than 0', (done) => {
     
     let id = -2;
 
-    request(app)
-        .put('/api/v1/groups/' + id)
-        .send(payload)
-        .set('Content-Type', 'application/json')
-        .set('Accept', 'application/json')
-        .expect(400)
-        .end((err, res) => {
-            if(err && res.error){
-                console.log(res.error);
-            }
-           
-            done(err);
-        });
+    const res = await common.putGroup(id, payload);
+    expect(res.status).toBe(400);
+    expect(res.body.error).toBe('The id must be positive and greater than 0');
 });
 
-test('PUT /groups/:id should return 400 when "members" is not an array', (done) => {
+test('PUT /groups/:id should return 400 when "members" is not an array', async () => {
     let payload = {
         name: "group name",
         members: 1
@@ -372,22 +204,12 @@ test('PUT /groups/:id should return 400 when "members" is not an array', (done) 
 
     let id = 1;
 
-    request(app)
-        .put('/api/v1/groups/' + id)
-        .send(payload)
-        .set('Content-Type', 'application/json')
-        .set('Accept', 'application/json')
-        .expect(400)
-        .end((err, res) => {
-            if (err && res.error) {
-                console.log(res.error);
-            }
-
-            done(err);
-        });
+    const res = await common.putGroup(id, payload);
+    expect(res.status).toBe(400);
+    expect(res.body.error).toBe('The field members must be a non-empty array');
 });
 
-test('PUT /groups/:id should return 404 if there is not a group with that id', (done) => {
+test('PUT /groups/:id should return 404 if there is not a group with that id', async () => {
     
     let payload = {
         name : "group name",
@@ -397,93 +219,43 @@ test('PUT /groups/:id should return 404 if there is not a group with that id', (
     // let id = storage.groups[storage.groups.length].id;
     let id = 100;
 
-    request(app)
-        .put('/api/v1/groups/' + id)
-        .send(payload)
-        .set('Content-Type', 'application/json')
-        .set('Accept', 'application/json')
-        .expect(404)
-        .end((err, res) => {
-            if(err && res.error){
-                console.log(res.error);
-            }
-           
-            done(err);
-        });
+    const res = await common.putGroup(id, payload);
+    expect(res.status).toBe(404);
+    expect(res.body.error).toBe('group not found');
 });
 
 // GET /groups/:id/members tests
 
-test('GET /groups/:id/members should return 200 and an array of members', (done) => {
+test('GET /groups/:id/members should return 200 and an array of members', async () => {
     
-    let id = 1;
+    const res = await common.getGroupsMembers(1);
 
-    request(app)
-        .get('/api/v1/groups/' + id + '/members')
-        .set('Content-Type', 'application/json')
-        .set('Accept', 'application/json')
-        .expect(200)
-        .end((err, res) => {
-            if(err && res.error){
-                console.log(res.error);
-            }
+    expect(res.status).toBe(200);
+    expect(Array.isArray(res.body)).toBe(true);
 
-            expect(Array.isArray(res.body)).toBe(true);
-            done(err);
-        });
 });
 
-test('GET /groups/:id/members should return 400 if id is 0', (done) => {
+test('GET /groups/:id/members should return 400 if id is 0', async () => {
     
-    let id = 0;
+    const res = await common.getGroupsMembers(0);
 
-    request(app)
-        .get('/api/v1/groups/' + id + '/members')
-        .set('Content-Type', 'application/json')
-        .set('Accept', 'application/json')
-        .expect(400)
-        .end((err, res) => {
-            if(err && res.error){
-                console.log(res.error);
-            }
-
-            done(err);
-        });
+    expect(res.status).toBe(400);
+    expect(res.body.error).toBe('The id must be positive and greater than 0');
+    
 });
 
-test('GET /groups/:id/members should return 400 if id is less than 0', (done) => {
+test('GET /groups/:id/members should return 400 if id is less than 0', async () => {
     
-    let id = -2;
+    const res = await common.getGroupsMembers(-2);
 
-    request(app)
-        .get('/api/v1/groups/' + id + '/members')
-        .set('Content-Type', 'application/json')
-        .set('Accept', 'application/json')
-        .expect(400)
-        .end((err, res) => {
-            if(err && res.error){
-                console.log(res.error);
-            }
-
-            done(err);
-        });
+    expect(res.status).toBe(400);
+    expect(res.body.error).toBe('The id must be positive and greater than 0');
 });
 
-test('GET /groups/:id/members should return 404 if there is not a group with that id', (done) => {
+test('GET /groups/:id/members should return 404 if there is not a group with that id', async () => {
     
-    // let id = storage.groups[storage.groups.length].id;
-    let id = 100;
+    const res = await common.getGroupsMembers(100);
 
-    request(app)
-        .get('/api/v1/groups/' + id + '/members')
-        .set('Content-Type', 'application/json')
-        .set('Accept', 'application/json')
-        .expect(404)
-        .end((err, res) => {
-            if(err && res.error){
-                console.log(res.error);
-            }
-
-            done(err);
-        });
+    expect(res.status).toBe(404);
+    expect(res.body.error).toBe('group not found');
 });
