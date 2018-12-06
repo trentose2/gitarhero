@@ -343,10 +343,6 @@ paths:
           required: true
           schema:
             type: object
-            required:
-              - type
-              - question
-              - answer
             properties:
               type:
                 type: string
@@ -599,9 +595,9 @@ definitions:
     type: object
     required:
       - type
-      - topice
+      - topic
       - question
-      - answer
+      - answers
     properties:
       type:
         type: string
