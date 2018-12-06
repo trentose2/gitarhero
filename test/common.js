@@ -146,6 +146,14 @@ function deleteTask(id) {
         .delete(`/api/v1/tasks/${id}`);
 }
 
+function putTask(id, payload) {
+    return request(app)
+        .put(`/api/v1/tasks/${id}`)
+        .send(payload)
+        .set('Content-Type', 'application/json')
+        .set('Accept', 'application/json');
+}
+
 function postMark(mark) {
     return request(app)
         .post('/api/v1/marks')
@@ -185,6 +193,7 @@ module.exports = {
     getTask,    
     postTask,
     deleteTask,
+    putTask,
     
     /* Marks */
     postMark,

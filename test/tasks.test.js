@@ -5,7 +5,7 @@ beforeAll(async () => {
 });
 
 test('GET /tasks/:id should return a task', async () => {
-    /* Simuliamo l'aggiunta di un task */
+    // Simuliamo l'aggiunta di un task
     let validPayload = {
         type: 'Open question',
         topic: 'Maths',
@@ -301,3 +301,226 @@ test('DELETE /tasks/foo (invalid task ID) should return an error', async () => {
     expect(res.body.error).toBe('Invalid task ID');
 });
 
+test('PUT /tasks/3 should update the task', async () => {
+    // Simuliamo l'aggiunta di un task e verifichiamo sia andata a buon fine
+    let validPayload = {
+        type: 'Open question',
+        topic: 'Geografia',
+        question: 'Quale è la capitale di Italia?',
+        answers: 'Roma'
+    };
+    const postReq = await common.postTask(validPayload);
+    expect(postReq.status).toBe(201); //Creato 
+    validPayload.id = 3;
+    let getReq = await common.getTask(validPayload.id);
+    expect(getReq.status).toBe(200);
+    expect(getReq.body).toEqual(validPayload);
+
+    // Aggiorniamo il task
+    let updatedData = {
+        id : validPayload.id,
+        answers: 'La capitale di Italia è Roma'
+    };
+    const putReq = await common.putTask(validPayload.id, updatedData);
+    validPayload.answers = updatedData.answers;
+    expect(putReq.status).toBe(200);
+    expect(putReq.body).toEqual(validPayload);
+});
+
+test('PUT /tasks should return 404', async () => {
+    let payload = {
+        id : 2,
+        answers: 'Foo'
+    };
+    const putReq = await common.putTask("", payload);
+    expect(putReq.status).toBe(404);
+});
+
+test('PUT /tasks/foo should return 400', async () => {
+    let payload = {
+        id : 'foo',
+        answers: 'fee'
+    };
+    const putReq = await common.putTask(payload.id, payload);
+    expect(putReq.status).toBe(400);
+    expect(putReq.body.error).toBe('Invalid task ID');
+});
+
+test('PUT /tasks/4 should return 404 because no task with id 5 exists', async () => {
+    let payload = {
+        type: 'Open question',
+        topic: 'Cultura generale',
+        question: 'Quanti mesi ha un anno?',
+        answers: '12'
+    };
+    const putReq = await common.putTask(4, payload);
+    expect(putReq.status).toBe(404);
+});
+
+test('PUT /tasks/3 should return 400 if the type of the task changed', async () => {
+    let payload = {
+        type: 'Multiple choice'
+    };
+    const putReq = await common.putTask(3, payload);
+    expect(putReq.status).toBe(400);
+    expect(putReq.body.error).toBe('Once that a task has been created, its type cannot be modified');
+});
+
+test('PUT /tasks/3 should return 400 if the type of the task is not a string', async () => {
+    let payload = {
+        type: 123
+    };
+    const putReq = await common.putTask(3, payload);
+    expect(putReq.status).toBe(400);
+    expect(putReq.body.error).toBe('The field "type" must be a non-empty string');
+});
+
+test('PUT /tasks/3 should return 200 if the topic of the task changed', async () => {
+    let payload = {
+        topic: 'Cultura generale'
+    };
+    const putReq = await common.putTask(3, payload);
+    expect(putReq.status).toBe(200);
+});
+
+test('PUT /tasks/3 should return 400 if the topic of the task is not a string', async () => {
+    let payload = {
+        topic: 123
+    };
+    const putReq = await common.putTask(3, payload);
+    expect(putReq.status).toBe(400);
+    expect(putReq.body.error).toBe('The field "topic" must be a non-empty string');
+});
+
+test('PUT /tasks/3 should return 200 if the question of the task changed', async () => {
+    let payload = {
+        question: 'Qual è il capoluogo della regione Lazio?'
+    };
+    const putReq = await common.putTask(3, payload);
+    expect(putReq.status).toBe(200);
+});
+
+test('PUT /tasks/3 should return 400 if the question of the task is not a string', async () => {
+    let payload = {
+        question: 123
+    };
+    const putReq = await common.putTask(3, payload);
+    expect(putReq.status).toBe(400);
+    expect(putReq.body.error).toBe('The field "question" must be a non-empty string');
+});
+
+test('PUT /tasks/3 should return 400 if the type of the task is "Open question" and the field "choices" is sent along the task', async () => {
+    let payload = {
+        choices : ['Roma', 'Napoli']
+    };
+    const putReq = await common.putTask(3, payload);
+    expect(putReq.status).toBe(400);
+    expect(putReq.body.error).toBe('If the type is "Open question", then the field "choices" is disallowed');
+});
+
+test('PUT /tasks/3 should return 400 if the type of the task is "Open question" and the field "answers" is an array', async () => {
+    let payload = {
+        answers : [1]
+    };
+    const putReq = await common.putTask(3, payload);
+    expect(putReq.status).toBe(400);
+    expect(putReq.body.error).toBe('The field "answers" must be a string');
+});
+
+test('PUT /tasks/4 should update the task', async () => {
+    // Simuliamo l'aggiunta di un task e verifichiamo sia andata a buon fine
+    let validPayload = {
+        type: 'Multiple choice',
+        topic: 'Corpo umano',
+        question: 'Quanti sono i sensi umani?',
+        choices: ['4', '5', '6'],
+        answers: [1]
+    };
+    const postReq = await common.postTask(validPayload);
+    expect(postReq.status).toBe(201); //Creato 
+    validPayload.id = 4;
+    let getReq = await common.getTask(validPayload.id);
+    expect(getReq.status).toBe(200);
+    expect(getReq.body).toEqual(validPayload);
+
+    // Aggiorniamo il task
+    let updatedData = {
+        id : validPayload.id,
+        choices: ['3', '4', '5', '6']
+    };
+    const putReq = await common.putTask(validPayload.id, updatedData);
+    validPayload.choices = updatedData.choices;
+    expect(putReq.status).toBe(200);
+    expect(putReq.body).toEqual(validPayload);
+});
+
+test('PUT /tasks/4 should return 400 if the type of the task is "Multiple choice" and a null field "choices" is sent along the task', async () => {
+    let payload = {
+        choices : null
+    };
+    const putReq = await common.putTask(4, payload);
+    expect(putReq.status).toBe(400);
+    expect(putReq.body.error).toBe('The field "choices" must be an array');
+});
+
+test('PUT /tasks/4 should return 400 if the type of the task is "Multiple choice" and the the field "choices" is not an array', async () => {
+    let payload = {
+        choices : 'foo'
+    };
+    const putReq = await common.putTask(4, payload);
+    expect(putReq.status).toBe(400);
+    expect(putReq.body.error).toBe('The field "choices" must be an array');
+});
+
+test('PUT /tasks/4 should return 400 if the type of the task is "Multiple choice" and the the field "choices" is not an array of strings', async () => {
+    let payload = {
+        choices : ['foo', 2, 3, 'baz']
+    };
+    const putReq = await common.putTask(4, payload);
+    expect(putReq.status).toBe(400);
+    expect(putReq.body.error).toBe('The values in the array of field "choices" must be strings');
+});
+
+test('PUT /tasks/4 should return 400 if the type of the task is "Multiple choice" and a null field "answers" is sent along the task', async () => {
+    let payload = {
+        answers : null
+    };
+    const putReq = await common.putTask(4, payload);
+    expect(putReq.status).toBe(400);
+    expect(putReq.body.error).toBe('The field "answers" must be an array');
+});
+
+test('PUT /tasks/4 should return 400 if the type of the task is "Multiple choice" and the the field "answers" is not an array', async () => {
+    let payload = {
+        answers : 'foo'
+    };
+    const putReq = await common.putTask(4, payload);
+    expect(putReq.status).toBe(400);
+    expect(putReq.body.error).toBe('The field "answers" must be an array');
+});
+
+test('PUT /tasks/4 should return 400 if the type of the task is "Multiple choice" and the the field "answers" is not an array of integers', async () => {
+    let payload = {
+        answers : ['foo', 2, 3, 'baz']
+    };
+    const putReq = await common.putTask(4, payload);
+    expect(putReq.status).toBe(400);
+    expect(putReq.body.error).toBe('The values contained in the field "answers" must be integers');
+});
+
+test('PUT /tasks/4 should return 400 if the type of the task is "Multiple choice" and the the field "answers" contains integers that do not represent valid indexes for the elements in the array of the field "answers"', async () => {
+    let payload = {
+        answers : [8, 10]
+    };
+    const putReq = await common.putTask(4, payload);
+    expect(putReq.status).toBe(400);
+    expect(putReq.body.error).toBe('The values contained in the field "answers" must represent valid indexes for the array of the field "choices"');
+});
+
+test('PUT /tasks/4 should return 200 if the answers of the task changed', async () => {
+    let payload = {
+        answers : [3]
+    };
+    const putReq = await common.putTask(4, payload);
+    expect(putReq.status).toBe(200);
+});
